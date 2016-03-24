@@ -8,8 +8,9 @@
 # hlsearch on (H) or off (h):
 ~h
 # Command Line History (newest to oldest):
-:wq
 :q
+:q!
+:wq
 
 # Search String History (newest to oldest):
 
@@ -20,14 +21,77 @@
 # Input Line History (newest to oldest):
 
 # Registers:
+""-	CHAR	0
+	'
 
 # File marks:
-'0  1  0  ~/SqlScripts/importJunkData.sql
+'0  1  0  ~/SqlScripts/ddl.sql
+'1  36  13  ~/SqlScripts/ddl.sql
+'2  1  22  ~/SqlScripts/importBSdata.sql
+'3  16  0  ~/SqlScripts/ddl.sql
+'4  1  0  ~/SqlScripts/importJunkData.sql
 
 # Jumplist (newest first):
+-'  1  0  ~/SqlScripts/ddl.sql
+-'  36  13  ~/SqlScripts/ddl.sql
+-'  1  22  ~/SqlScripts/importBSdata.sql
+-'  16  0  ~/SqlScripts/ddl.sql
+-'  1  0  ~/SqlScripts/importJunkData.sql
+-'  1  0  ~/SqlScripts/importJunkData.sql
+-'  1  0  ~/SqlScripts/importJunkData.sql
+-'  1  0  ~/SqlScripts/importJunkData.sql
+-'  1  22  ~/SqlScripts/importBSdata.sql
+-'  1  0  ~/SqlScripts/importJunkData.sql
+-'  1  0  ~/SqlScripts/importJunkData.sql
+-'  1  0  ~/SqlScripts/importJunkData.sql
+-'  1  0  ~/SqlScripts/importJunkData.sql
+-'  1  22  ~/SqlScripts/importBSdata.sql
+-'  1  0  ~/SqlScripts/importJunkData.sql
+-'  1  0  ~/SqlScripts/importJunkData.sql
+-'  1  0  ~/SqlScripts/importJunkData.sql
+-'  1  0  ~/SqlScripts/importJunkData.sql
+-'  1  22  ~/SqlScripts/importBSdata.sql
+-'  1  0  ~/SqlScripts/importJunkData.sql
+-'  1  0  ~/SqlScripts/importJunkData.sql
+-'  1  0  ~/SqlScripts/importJunkData.sql
+-'  1  0  ~/SqlScripts/importJunkData.sql
+-'  1  22  ~/SqlScripts/importBSdata.sql
+-'  1  0  ~/SqlScripts/importJunkData.sql
+-'  1  0  ~/SqlScripts/importJunkData.sql
+-'  1  0  ~/SqlScripts/importJunkData.sql
+-'  1  0  ~/SqlScripts/importJunkData.sql
+-'  1  22  ~/SqlScripts/importBSdata.sql
+-'  1  0  ~/SqlScripts/importJunkData.sql
+-'  1  0  ~/SqlScripts/importJunkData.sql
+-'  1  0  ~/SqlScripts/importJunkData.sql
+-'  1  0  ~/SqlScripts/importJunkData.sql
+-'  1  22  ~/SqlScripts/importBSdata.sql
+-'  1  0  ~/SqlScripts/importJunkData.sql
+-'  1  0  ~/SqlScripts/importJunkData.sql
+-'  1  0  ~/SqlScripts/importJunkData.sql
+-'  1  0  ~/SqlScripts/importJunkData.sql
+-'  1  22  ~/SqlScripts/importBSdata.sql
+-'  1  0  ~/SqlScripts/importJunkData.sql
+-'  1  0  ~/SqlScripts/importJunkData.sql
+-'  1  0  ~/SqlScripts/importJunkData.sql
 -'  1  0  ~/SqlScripts/importJunkData.sql
 
 # History of marks within files (newest to oldest):
+
+> ~/SqlScripts/ddl.sql
+	"	1	0
+	^	1	18
+	.	1	18
+	+	1	19
+	+	26	25
+	+	36	13
+	+	1	18
+
+> ~/SqlScripts/importBSdata.sql
+	"	1	22
+	^	1	23
+	.	1	23
+	+	1	23
 
 > ~/SqlScripts/importJunkData.sql
 	"	1	0

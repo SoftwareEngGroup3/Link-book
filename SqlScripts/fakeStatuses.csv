@@ -1,0 +1,101 @@
+statID,uIDnum,content
+100,1,Nulla eget metus
+101,2,purus
+102,3,"ut aliquam iaculis, lacus pede sagittis augue, eu tempor erat"
+103,4,"non, bibendum sed, est. Nunc laoreet lectus"
+104,5,"egestas blandit. Nam nulla magna, malesuada vel, convallis"
+105,6,convallis dolor. Quisque tincidunt pede ac
+106,7,neque venenatis lacus. Etiam bibendum fermentum metus.
+107,8,Mauris blandit enim consequat purus. Maecenas libero
+108,9,"cursus luctus, ipsum leo elementum"
+109,10,"Maecenas iaculis aliquet diam. Sed diam lorem, auctor quis,"
+110,11,"massa lobortis ultrices. Vivamus rhoncus. Donec est. Nunc ullamcorper,"
+111,12,egestas. Fusce aliquet magna a neque. Nullam ut nisi a
+112,13,urna. Ut tincidunt vehicula risus. Nulla
+113,14,porttitor interdum. Sed auctor odio
+114,15,nibh
+115,16,lorem tristique
+116,17,"quis, pede. Suspendisse"
+117,18,gravida nunc sed pede. Cum
+118,19,consectetuer adipiscing
+119,20,In scelerisque scelerisque dui.
+120,21,semper. Nam tempor diam dictum sapien. Aenean massa.
+121,22,suscipit nonummy. Fusce fermentum fermentum arcu. Vestibulum ante
+122,23,Nunc
+123,24,"a, enim. Suspendisse aliquet, sem ut cursus luctus,"
+124,25,lectus pede et
+125,26,"tellus sem mollis dui, in"
+126,27,ultrices. Duis volutpat nunc sit
+127,28,interdum ligula
+128,29,hymenaeos. Mauris ut quam vel sapien imperdiet ornare. In faucibus.
+129,30,"nec, euismod in, dolor. Fusce"
+130,31,"blandit viverra. Donec tempus, lorem fringilla ornare placerat, orci lacus"
+131,32,"semper rutrum. Fusce dolor quam, elementum at, egestas"
+132,33,ac tellus. Suspendisse
+133,34,bibendum. Donec felis
+134,35,"Nunc mauris sapien, cursus in, hendrerit consectetuer, cursus et,"
+135,36,aliquet. Phasellus fermentum convallis ligula.
+136,37,"lectus. Cum sociis natoque penatibus et magnis dis parturient montes,"
+137,38,"elit, pharetra ut, pharetra sed, hendrerit a, arcu. Sed"
+138,39,vitae purus gravida sagittis.
+139,40,"magnis dis parturient montes,"
+140,41,Suspendisse sagittis. Nullam vitae diam. Proin dolor. Nulla
+141,42,senectus et netus et malesuada fames ac turpis egestas. Fusce
+142,43,"porttitor interdum. Sed auctor odio a purus. Duis elementum,"
+143,44,est. Mauris eu turpis. Nulla aliquet.
+144,45,porttitor scelerisque neque. Nullam nisl.
+145,46,"elit, a feugiat tellus"
+146,47,Nam
+147,48,quis urna. Nunc quis arcu
+148,49,Morbi non sapien molestie orci tincidunt adipiscing. Mauris molestie pharetra
+149,50,"libero. Donec consectetuer mauris id sapien. Cras dolor dolor,"
+150,51,sem. Pellentesque ut ipsum ac mi eleifend
+151,52,Morbi quis
+152,53,"tincidunt, neque vitae semper egestas, urna justo faucibus lectus, a"
+153,54,erat eget
+154,55,"quis, tristique ac, eleifend vitae,"
+155,56,ante dictum cursus.
+156,57,"faucibus lectus, a sollicitudin orci"
+157,58,convallis convallis dolor. Quisque tincidunt pede ac urna. Ut
+158,59,"neque tellus, imperdiet non, vestibulum"
+159,60,"dictum eleifend, nunc risus varius"
+160,61,mauris. Morbi non sapien molestie orci tincidunt
+161,62,egestas
+162,63,elit. Nulla facilisi. Sed neque. Sed eget lacus. Mauris non
+163,64,Maecenas
+164,65,non dui nec urna suscipit nonummy. Fusce
+165,66,Nunc commodo auctor velit. Aliquam nisl. Nulla eu neque pellentesque
+166,67,"arcu iaculis enim,"
+167,68,nunc. Quisque ornare tortor at risus.
+168,69,laoreet
+169,70,Mauris blandit enim
+170,71,vehicula risus. Nulla eget metus eu erat semper rutrum. Fusce
+171,72,Suspendisse eleifend. Cras sed
+172,73,id enim. Curabitur massa. Vestibulum accumsan
+173,74,"nec, cursus a,"
+174,75,"pharetra ut, pharetra sed, hendrerit a, arcu. Sed et"
+175,76,"mollis. Phasellus libero mauris, aliquam eu, accumsan"
+176,77,"a, magna. Lorem ipsum dolor sit"
+177,78,"ligula consectetuer rhoncus. Nullam velit dui, semper"
+178,79,Sed molestie. Sed id risus quis diam luctus lobortis. Class
+179,80,"et risus. Quisque libero lacus, varius et, euismod et,"
+180,81,"Sed pharetra, felis eget"
+181,82,diam
+182,83,libero. Donec
+183,84,"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam auctor,"
+184,85,feugiat metus sit amet ante. Vivamus
+185,86,"pede, nonummy ut, molestie"
+186,87,turpis. Nulla aliquet. Proin
+187,88,"sapien, gravida"
+188,89,lectus. Cum
+189,90,"lectus rutrum urna, nec luctus felis"
+190,91,eget metus. In nec orci. Donec
+191,92,luctus
+192,93,lectus. Cum sociis natoque penatibus et magnis
+193,94,amet metus.
+194,95,"luctus ut, pellentesque eget,"
+195,96,"ipsum. Curabitur consequat, lectus"
+196,97,a odio semper cursus. Integer mollis. Integer
+197,98,vel arcu eu odio tristique pharetra.
+198,99,consectetuer euismod est arcu ac orci. Ut semper pretium
+199,100,"eget laoreet posuere, enim nisl elementum purus,"

@@ -5,7 +5,7 @@
 <a href="home.php">Home</a>
 <a href="profile.php">Profile</a>
 <a href="connections.php">Connections</a>
-<a href="search.php">Search</a>
+<a href="#" style="color:red">Search</a>
 <a href="listings.php">Listings</a>
 <h1>Link-Book</h1>
 Search Bar<br/><br/>

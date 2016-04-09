@@ -4,7 +4,7 @@
 <body>
     <a href="home.php">Home</a>
     <a href="profile.php">Profile</a>
-    <a href="connections.php">Connections</a>
+    <a href="#" style="color:red">Connections</a>
     <a href="search.php">Search</a>
     <a href="listings.php">Listings</a>
     <h1>Link-Book</h1>

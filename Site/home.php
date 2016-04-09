@@ -3,7 +3,7 @@
 </head>
 <body>
     Toolbar:
-    <a href="home.php">Home</a>
+    <a href="#" style="color:red">Home</a>
     <a href="profile.php">Profile</a>
     <a href="connections.php">Connections</a>
     <a href="search.php">Search</a>

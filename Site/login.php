@@ -78,9 +78,6 @@ if (isset($_POST['submit'])) { // Was the form submitted?
 
         mysqli_stmt_fetch($stmt);
 
-        echo $user;
-        echo $salt;
-
         if (password_verify($salt . $_POST['password'], $hashed_password)) {
             session_start();
             $_SESSION["loggedin"] = "true";

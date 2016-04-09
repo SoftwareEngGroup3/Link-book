@@ -15,6 +15,12 @@
     <title>Linkbook &mdash; Login</title>
 </head>
 <body>
+<?php
+session_start();
+if ($_SESSION["loggedin"] == "true") {
+    header("Location: home.php");
+}
+?>
 <form class="ui large form" action="<?= $_SERVER['PHP_SELF'] ?>" method='POST'>
     <div class="container">
         <div class="row" style="padding-bottom: 2%">
@@ -47,7 +53,7 @@
     <div class="col-lg-3">
         Need an account? <a href="register.php">Register here</a>
         <hr/>
-        Having trouble logging in?<br/> <a href="password_reset.php">Reset your password</a>.
+        <!--Having trouble logging in?<br/> <a href="password_reset.php">Reset your password</a>.-->
         <hr/>
         <a href="home.php">Log-In Successful?</a>
     </div>
@@ -55,18 +61,17 @@
 </div>
 <?php
 
-if(isset($_POST['submit'])) { // Was the form submitted?
+if (isset($_POST['submit'])) { // Was the form submitted?
 
     include("../secure/secure.php");
 
-    $link = mysqli_connect($site,$user,$pass,$db) or die("Connect Error " . mysqli_error($link));
+    $link = mysqli_connect($site, $user, $pass, $db) or die("Connect Error " . mysqli_error($link));
 
     $key = $_POST['username'];
 
     $password = $_POST['password'];
 
-    if($stmt = mysqli_prepare($link, "SELECT * FROM users WHERE username = ?"))
-    {
+    if ($stmt = mysqli_prepare($link, "SELECT * FROM users WHERE username = ?")) {
         mysqli_stmt_bind_param($stmt, "s", $key);
         mysqli_stmt_execute($stmt);
         mysqli_stmt_bind_result($stmt, $uIDnum, $fName, $lName, $email, $user, $salt, $hashed_password, $orgo, $bio, $pic, $lang);
@@ -76,22 +81,19 @@ if(isset($_POST['submit'])) { // Was the form submitted?
         echo $user;
         echo $salt;
 
-
-        if (password_verify($salt.$_POST['password'], $hashed_password)){
-            header("Location: http://swe-group3.centralus.cloudapp.azure.com/success.php");
-        }
-
-        else{
+        if (password_verify($salt . $_POST['password'], $hashed_password)) {
+            session_start();
+            $_SESSION["loggedin"] = "true";
+            header("Location: index.php");
+        } else {
             echo '   Invalid password.';
         }
 
         mysqli_stmt_close($stmt);
     }
 
-}
-
-else if(isset($_POST['register'])) {
-    header("Location: http://swe-group3.centralus.cloudapp.azure.com/register.php");
+} else if (isset($_POST['register'])) {
+    header("Location: register.php");
 }
 
 ?>

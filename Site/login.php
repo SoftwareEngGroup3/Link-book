@@ -93,6 +93,8 @@ if (isset($_POST['submit'])) {
         Need an account? <a href="register.php">Register here</a>
         <hr/>
         Having trouble logging in?<br/> <a href="password_reset.php">Reset your password</a>.
+        <hr/>
+        <a href="home.php">Log-In Successful?</a>
     </div>
 </div>
 </div>

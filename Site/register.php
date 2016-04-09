@@ -37,32 +37,29 @@ if ($_SESSION["loggedin"] == "true") {
 
                 <div class="row form-group">
                     <div class="ui input">
-                        <input type="text" name="firstname" placeholder="First Name"/>
+                        <input type="text" name="firstname" required="required" placeholder="First Name"/>
                     </div>
                 </div>
                 <div class="row form-group">
                     <div class="ui input">
-                        <input type="text" name="lastname" placeholder="Last Name"/>
+                        <input type="text" name="lastname" required="required" placeholder="Last Name"/>
                     </div>
                 </div>
 
                 <div class="row form-group">
                     <div class="ui input">
-                        <input type="email" name="email" placeholder="Email"/>
+                        <input type="email" name="email" required="required" placeholder="Email"/>
                     </div>
                 </div>
 
                 <div class="row form-group">
-                    <input class='form-control' type="text" name="username" placeholder="username">
+                    <input class='form-control' type="text" name="username" required="required" placeholder="username">
                 </div>
                 <div class="row form-group">
-                    <input class='form-control' type="password" name="password" placeholder="password">
+                    <input class='form-control' type="password" name="password" required="required" placeholder="password">
                 </div>
                 <div class="row form-group">
-                    <input class=" btn btn-default" type="submit" name="submit" value="Register"/>
-                </div>
-                <div class="row form-group">
-                    <input class=" btn btn-default" type="submit" name="home" value="Home"/>
+                    <input class=" btn btn-default" type="submit" name="submit" required="required" value="Register"/>
                 </div>
             </form>
         </div>
@@ -108,10 +105,10 @@ if ($_SESSION["loggedin"] == "true") {
         } else {
             die("prepare failed");
         }
-    } else if (isset($_POST['home'])) {
-        header("Location: index.php");
-    }
     ?>
+    <div class="field">
+        <a href="index.php" class="ui fluid button">Go back</a>
+    </div>
 </div>
 </body>
 </html>

@@ -43,51 +43,6 @@
             </div>
         </div>
 </form>
-
-<?php/*
-//check to make sure address is using https
-/*if($_SERVER["HTTPS"] != "on"){
-        header("Location: https://babbage.cs.missouri.edu/~jtbc7d/cs3380/lab8/index.php");
-    }
-//connect to database
-include("../secure/database.php");
- $dbconn = pg_connect(HOST." ".DBNAME." ".USERNAME." ".PASSWORD)
-    or die('Could not connect: ' . pg_last_error());
-
-//if the user is already logged in, redirect to homepage
-    if(isset($_SESSION['login_user'])){
-        header("location: home.php");
-    }
-*/
-if (isset($_POST['submit'])) {
-    //query the stored salt and hashed password from database
-    $result = pg_prepare($dbconn, "lookup", 'SELECT salt, password_hash FROM lab8.authentication WHERE username = $1');
-
-    $result = pg_execute($dbconn, "lookup", array($_POST['username']));
-
-    $row = pg_fetch_assoc($result);
-
-    $localhash = sha1($row['salt'] . $_POST['password']);
-
-
-    //if passwords match, log user in
-    if ($localhash == $row['password_hash']) {
-        session_start();
-        $_SESSION['login_user'] = $_POST['username'];
-
-        header("location:  https://babbage.cs.missouri.edu/~jtbc7d/cs3380/lab8/home.php");
-
-        $query = 'INSERT INTO lab8.log (username, ip_address, action) VALUES(\'' . $_POST['username'] . '\', \'' . $_SERVER['REMOTE_ADDR'] . '\', \'' . login . '\');';
-        pg_prepare($dbconn, "log", $query);
-        pg_execute($dbconn, "log", array()) or die('Query failed: ' . pg_last_error());
-
-    } //if password does not match, redirect user
-    else
-        echo "Please Enter Your Login Information Again";
-
-}
-
-?>
 <div class="row">
     <div class="col-lg-3">
         Need an account? <a href="register.php">Register here</a>
@@ -98,5 +53,47 @@ if (isset($_POST['submit'])) {
     </div>
 </div>
 </div>
+<?php
+
+if(isset($_POST['submit'])) { // Was the form submitted?
+
+    include("../secure/secure.php");
+
+    $link = mysqli_connect($site,$user,$pass,$db) or die("Connect Error " . mysqli_error($link));
+
+    $key = $_POST['username'];
+
+    $password = $_POST['password'];
+
+    if($stmt = mysqli_prepare($link, "SELECT * FROM users WHERE username = ?"))
+    {
+        mysqli_stmt_bind_param($stmt, "s", $key);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt, $uIDnum, $fName, $lName, $email, $user, $salt, $hashed_password, $orgo, $bio, $pic, $lang);
+
+        mysqli_stmt_fetch($stmt);
+
+        echo $user;
+        echo $salt;
+
+
+        if (password_verify($salt.$_POST['password'], $hashed_password)){
+            header("Location: http://swe-group3.centralus.cloudapp.azure.com/success.php");
+        }
+
+        else{
+            echo '   Invalid password.';
+        }
+
+        mysqli_stmt_close($stmt);
+    }
+
+}
+
+else if(isset($_POST['register'])) {
+    header("Location: http://swe-group3.centralus.cloudapp.azure.com/register.php");
+}
+
+?>
 </body>
 </html>

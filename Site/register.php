@@ -61,26 +61,9 @@
 			</div>
 			<?php
 				if(isset($_POST['submit'])) { // Was the form submitted?
-        
-                    /*
-                    CREATE TABLE linkbook.users
-                    (
-                    uIDnum INT,
-                    fName VARCHAR(30),
-                    lName VARCHAR(30),
-                    email VARCHAR(20),
-                    username VARCHAR(50),
-                    salt CHAR(40) NOT NULL,
-                    hashed_pass CHAR(40) NOT NULL,
-                    orginization VARCHAR(30),
-                    bio TEXT,
-                    profile_picture VARCHAR(50),
-                    coding_languages VARCHAR(60),
-                    PRIMARY KEY (uIDnum)
-                    );
-					*/
-                    
-					$link = mysqli_connect("swe-group3.centralus.cloudapp.azure.com","bdbb54","Passtest1","linkbook") or die("Connect Error " . mysqli_error($link));
+                    include("../secure/secure.php");
+
+					$link = mysqli_connect($site,$user,$pass,$db) or die("Connect Error " . mysqli_error($link));
         
 					$sql = "INSERT INTO users(uIDnum, fName, lName, email, username, salt, hashed_pass, orginization, bio, profile_picture, coding_languages) VALUES(?,?,?,?,?,?,?,?,?,?,?)";       
         
@@ -121,7 +104,7 @@
 					}
 				}
 				else if(isset($_POST['home'])) {
-                    header("Location: http://swe-group3.centralus.cloudapp.azure.com/bdbb54/index.php");
+                    header("Location: index.php");
                 }
 			?>
 		</div>

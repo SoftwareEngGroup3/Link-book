@@ -1,5 +1,6 @@
 <head>
     <title>Link-Book: Profile</title>
+    <?php include("header.php");?>
 </head>
 <body>
 <?php include("checksession.php"); ?>

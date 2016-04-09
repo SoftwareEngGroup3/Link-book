@@ -1,5 +1,6 @@
 <head>
     <title>Link-Book</title>
+    <?php include("header.php");?>
 </head>
 <body>
 <?php

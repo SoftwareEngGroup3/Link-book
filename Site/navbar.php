@@ -2,7 +2,7 @@
 echo("<nav class=\"navbar navbar-default navbar-fixed-top\">
       <div class=\"container\">
       <div id='navbar-header' class=\"navbar-header\">
-        <a id='logo' class='brand navbar-brand' href='#'>Link-Book</a>
+        <a id='logo' class='brand navbar-brand' href='home.php'>Link-Book</a>
       </div>
         <div id='navbar' class=\"navbar-collapse collapse\">
           <ul class=\"nav navbar-nav\">

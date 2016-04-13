@@ -97,11 +97,12 @@ if ($_SESSION["loggedin"] == "true") {
 
             mysqli_stmt_bind_param($stmt, "issssssssss", $uIDnum, $fName, $lName, $email, $user, $salt, $hpass, $orgo, $bio, $pic, $lang) or die("bind param");
 
+            //mysqli_stmt_bind_param($stmt, "sss", $user, $salt, $hpass) or die("bind param");
+
             if (mysqli_stmt_execute($stmt)) {
                 echo "<h4>Success</h4>";
             } else {
                 echo "<h4>Failed</h4>";
-                echo "<p>Username may already exist. Try using a different username.</p>";
             }
             $result = mysqli_stmt_get_result($stmt);
         } else {

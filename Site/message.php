@@ -7,7 +7,6 @@
 include("checksession.php");
 include("navbar.php");
 ?>
-<h1>Link-Book</h1>
 <a href="profile.php?pid=example">Photo</a>
 <p>Example Message</p>
 <a href="profile.php?pid=you">Your Photo</a>

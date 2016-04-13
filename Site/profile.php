@@ -7,7 +7,6 @@
 include("checksession.php");
 include("navbar.php");
 ?>
-<h1>Link-Book</h1>
 This page will be populated with a whole bunch of fields based on the profile table.
 If profile.userID == session.userID, these fields will be editable and savable
 else, they will be read only.

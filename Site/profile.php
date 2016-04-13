@@ -1,8 +1,12 @@
 <head>
     <title>Link-Book: Profile</title>
+    <?php include("header.php"); ?>
 </head>
 <body>
-<?php include("checksession.php"); ?>
+<?php
+include("checksession.php");
+include("navbar.php");
+?>
 <a href="home.php">Home</a>
 <a href="#" style="color:red">Profile</a>
 <a href="connections.php">Connections</a>

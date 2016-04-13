@@ -7,7 +7,6 @@
 include("checksession.php");
 include("navbar.php");
 ?>
-<h1>Link-Book</h1>
 <table border="1">
     <tr>
         <td>Search</td>

@@ -1,6 +1,7 @@
 $(document).ready(function(){
     var path = window.location.pathname;
     var page = path.split("/").pop();
+    console.log(page);
     switch(page){
         case "home.php":
             $("#homeTab").addClass("active");
@@ -29,6 +30,9 @@ $(document).ready(function(){
             break;
 
         case "index.php":
+        case "":
+            $("#navbar-header").detach();
+            $("#logo").detach();
         case "register.php":
         case "login.php":
             $("#homeTab").detach();
@@ -37,7 +41,7 @@ $(document).ready(function(){
             $("#searchTab").detach();
             $("#listingsTab").detach();
             $("#logoutTab a").attr("href", "login.php");
-            $("#logoutTab a").html("Log-In");
+            $("#logoutTab a").html("Log-In")
             break;
         case "login.php":
             $("#logoutTab a").attr("href", "#")

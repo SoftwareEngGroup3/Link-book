@@ -1,0 +1,8 @@
+@font-face {
+    font-family: 'ABOVE';
+    src: url('http://swe-group3.centralus.cloudapp.azure.com/pg3f4/font/ABOVE.ttf');
+}
+
+.brand {
+    font-family: "ABOVE";
+}

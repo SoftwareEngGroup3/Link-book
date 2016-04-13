@@ -1,8 +1,10 @@
 <head>
     <title>Link-Book</title>
+    <?php include("header.php"); ?>
 </head>
 <body>
 <?php
+include("navbar.php");
 session_start();
 if ($_SESSION["loggedin"] == "true") {
     header("Location: home.php");

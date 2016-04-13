@@ -7,12 +7,6 @@
 include("checksession.php");
 include("navbar.php");
 ?>
-<a href="home.php">Home</a>
-<a href="profile.php">Profile</a>
-<a href="connections.php">Connections</a>
-<a href="search.php">Search</a>
-<a href="#" style="color:red">Listings</a>
-<a href="logout.php">Log-Out</a>
 <h1>Link-Book</h1>
 <table border="1">
     <tr>

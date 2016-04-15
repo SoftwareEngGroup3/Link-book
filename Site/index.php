@@ -3,6 +3,7 @@
     <?php include("header.php"); ?>
 </head>
 <body>
+<div class="container">
 <?php
 include("navbar.php");
 session_start();
@@ -10,7 +11,6 @@ if ($_SESSION["loggedin"] == "true") {
     header("Location: home.php");
 }
 ?>
-<div class="container">
     <div class="row">
         <div class="col-lg-6">
             <h1 class="brand">Link-Book</h1>

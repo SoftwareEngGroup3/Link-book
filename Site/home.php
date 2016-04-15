@@ -7,8 +7,8 @@
 <?php
 include("checksession.php");
 include("navbar.php");
+include("homeController.php");
+populateStatuses();
 ?>
-<a href="profile.php">Photo</a>
-Status
 </div>
 </body>

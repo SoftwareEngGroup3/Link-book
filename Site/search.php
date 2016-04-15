@@ -20,6 +20,6 @@ include("searchController.php");
         </div>
     </div>
 
-    <?php populateUsers("", 5); ?>
+    <?php populateUsers("", 5, true); ?>
 </div>
 </body>

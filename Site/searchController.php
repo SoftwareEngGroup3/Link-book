@@ -1,5 +1,5 @@
 <?php
-function populateUsers($query, $usersPerRow)
+function populateUsers($query, $usersPerRow, $connectButton)
 {
     include("../secure/secure.php");
     $link = mysqli_connect($site, $user, $pass, $db) or die("Connect Error " . mysqli_error($link));
@@ -11,7 +11,7 @@ function populateUsers($query, $usersPerRow)
             for ($i; $i < $usersPerRow; $i++) {
                 if ($i == 0 || ($row = mysqli_fetch_assoc($result))) {
                     echo "<div class='col-lg-2'>";
-                    printUsers($row[uIDnum], $row[profile_picture], $row[fName], $row[lName], true);
+                    printUser($row[uIDnum], $row[profile_picture], $row[fName], $row[lName], $connectButton);
                     echo "</div>";
                 } else {
                     break;
@@ -25,7 +25,7 @@ function populateUsers($query, $usersPerRow)
     }
 }
 
-function printUsers($uid, $picPath, $fName, $lName, $withConnectButton)
+function printUser($uid, $picPath, $fName, $lName, $withConnectButton)
 {
     if($picPath == "empty"){
         $picPath = "../img/no_profile.jpg";
@@ -33,7 +33,7 @@ function printUsers($uid, $picPath, $fName, $lName, $withConnectButton)
     ?>
     <div class="row">
         <div class="col-lg-12">
-            <a href="profile.php?uid=<?php echo $uid ?>"><img src="<?php echo $picPath?>" height="120em" width="110em" onclick="window.location.href="></a>
+            <a href="profile.php?uid=<?php echo $uid ?>"><img src="<?php echo $picPath?>" height="120em" width="110em""></a>
         </div>
     </div>
     <div class="row">
@@ -41,11 +41,13 @@ function printUsers($uid, $picPath, $fName, $lName, $withConnectButton)
             <a href="profile.php?uid=<?php echo $uid ?>"><?php echo "$fName $lName" ?></a>
         </div>
     </div>
+    <?php if($withConnectButton) { ?>
     <div class="row">
         <div class="col-lg-12">
             <div class="btn btn-success" style="height: 2em; width: 8em">Connect</div>
         </div>
     </div>
     <?php
+    }
 }
-
+?>

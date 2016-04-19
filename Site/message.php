@@ -14,7 +14,13 @@ include("messageController.php");
         generateMessages($_SESSION["uid"], $_GET["user"]);
     } else {
         if (isset($_GET["bid"])) {
-            generateMessages($_SESSION["uid"], $_GET["bid"]);
+            $bid = $_GET["bid"];
+            include("../secure/secure.php");
+            $link = mysqli_connect($site, $user, $pass, $db) or die("Connect Error " . mysqli_error($link));
+            $result = mysqli_fetch_assoc(mysqli_query($link, "SELECT * FROM `business` WHERE bIDnum = $bid")) or die("Connect Error: Can't fetch business " . mysqli_error($link));
+
+            generateMessages($_SESSION["uid"], $result[uIDnum]);
+
         } else {
             header("Location: home.php");
         }

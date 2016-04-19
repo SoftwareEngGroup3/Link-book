@@ -13,11 +13,9 @@ if ($_SESSION["loggedin"] == "true") {
 ?>
 <form class="ui large form" action="<?= $_SERVER['PHP_SELF'] ?>" method='POST'>
     <div class="container">
-        <div class="row" style="padding-bottom: 2%">
-            <!-- This will eventually contain a blank toolbar -->
-        </div>
+
         <div class="row" style="padding-bottom: 3%">
-            <h2>Link-Book</h2>
+            <h2>Log-In</h2>
         </div>
         <div class="row" style="padding-bottom: 3%">
             <div class="col-lg-2"></div>

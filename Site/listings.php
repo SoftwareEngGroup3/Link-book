@@ -6,28 +6,21 @@
 <?php
 include("checksession.php");
 include("navbar.php");
+include("listingsController.php");
 ?>
-<table border="1">
-    <tr>
-        <td>Search</td>
-        <td>Search</td>
-        <td>Search</td>
-        <td>Search</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>Job Title</td>
-        <td>Company</td>
-        <td>Location</td>
-        <td>Contact Info</td>
-        <td>Message...</td>
-    </tr>
-    <tr>
-        <td>Example Title</td>
-        <td><a href="profile.php?pid=example">Example Company</a></td>
-        <td>Example Location</td>
-        <td>Example Contact Info...</td>
-        <td><a href="message.php?pid=example">Message...</a></td>
-    </tr>
-</table>
+<div class="container">
+    <table border="2" class="table">
+        <tr bgcolor="#f5f5dc">
+            <td>Job Title</td>
+            <td>Company</td>
+            <td>Location</td>
+            <td>Description</td>
+            <td>Qualifications</td>
+            <td>Starting Pay</td>
+            <td>Contact Info</td>
+            <td></td>
+        </tr>
+        <?php generateListings("", ""); ?>
+    </table>
+</div>
 </body>

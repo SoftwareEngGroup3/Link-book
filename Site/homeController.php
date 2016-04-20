@@ -3,7 +3,7 @@ function populateStatuses()
 {
     include("../secure/secure.php");
     $link = mysqli_connect($site, $user, $pass, $db) or die("Connect Error " . mysqli_error($link));
-    $result = mysqli_query($link, "SELECT * FROM `status`");
+    $result = mysqli_query($link, "SELECT * FROM `status` ORDER BY `timestamp` DESC");
     while ($statusRow = mysqli_fetch_assoc($result)) {
         $i = 0;
         echo "<div class='row' style='padding-bottom: 2em; padding-left: 8em'>";

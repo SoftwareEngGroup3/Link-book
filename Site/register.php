@@ -89,7 +89,7 @@ if ($_SESSION["loggedin"] == "true") {
             } else {
                 echo "<h4>Failed</h4>";
             }
-            $result = mysqli_stmt_get_result($stmt);
+            //$result = mysqli_stmt_get_result($stmt);
         } else {
             die("prepare failed");
         }

@@ -16,10 +16,16 @@ function generateMessages($sender, $receiver)
             }
             echo "</div>";
         }
-    } else {
-        echo "No messages yet! :(";
-    }
+    } else { ?>
+        <div class='row' style='margin-bottom: 2em'>
+            <div class='col-md-3'></div>
+            <div class='col-md-4'>
+                No messages yet! :(
+            </div>
+        </div>
+        <?php
 
+    }
 }
 
 function printSentMessage($picPath, $name, $content, $uid)

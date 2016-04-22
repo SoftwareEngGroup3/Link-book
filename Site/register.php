@@ -58,7 +58,7 @@ if ($_SESSION["loggedin"] == "true") {
 
         $link = mysqli_connect($site, $user, $pass, $db) or die("Connect Error " . mysqli_error($link));
 
-        $sql = "INSERT INTO users(uIDnum, fName, lName, email, username, salt, hashed_pass, orginization, bio, profile_picture, coding_languages) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+        $sql = "INSERT INTO users(uIDnum, fName, lName, email, username, salt, hashed_pass, organization, bio, profile_picture, coding_languages) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 
         //$sql = "INSERT INTO user(username, salt, hashed_password) VALUES(?,?,?)";
 

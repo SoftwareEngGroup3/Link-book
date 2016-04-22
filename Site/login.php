@@ -58,7 +58,7 @@ if (isset($_POST['submit'])) { // Was the form submitted?
     if ($stmt = mysqli_prepare($link, "SELECT * FROM users WHERE username = ?")) {
         mysqli_stmt_bind_param($stmt, "s", $key);
         mysqli_stmt_execute($stmt);
-        mysqli_stmt_bind_result($stmt, $uIDnum, $fName, $lName, $email, $user, $salt, $hashed_password, $orgo, $bio, $pic, $lang);
+        mysqli_stmt_bind_result($stmt, $uIDnum, $isBusiness, $fName, $lName, $email, $user, $salt, $hashed_password, $orgo, $bio, $pic, $lang);
 
         mysqli_stmt_fetch($stmt);
 

@@ -11,6 +11,7 @@ function populateUsers($q, $usersPerRow, $connectButton)
         $query = 'SELECT uIDnum, profile_picture, fName, lName FROM `users` WHERE fName LIKE ? OR lName LIKE ? ORDER BY fName';
         $stmt = $link->stmt_init();
         if ($stmt->prepare($query)){
+            $q = "%".$q."%";
             $stmt->bind_param("ss", $q, $q);
             $stmt->execute();
             $result = $stmt->get_result();

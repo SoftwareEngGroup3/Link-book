@@ -5,12 +5,14 @@
 </head>
 <body>
 <?php
-include("checksession.php");
+session_start();
+
 include("navbar.php");
 include("profileController.php");
+
 ?>
 <div>
-    <h1> Welcome Admin
+    <h1> Welcome Admin</h1>
 </div>
 
 

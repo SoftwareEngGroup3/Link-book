@@ -65,8 +65,13 @@ if (isset($_POST['submit'])) { // Was the form submitted?
         if (password_verify($salt . $_POST['password'], $hashed_password)) {
             session_start();
             $_SESSION["loggedin"] = "true";
+            $_SESSION["username"] = $key;
             $_SESSION["uid"] = $uIDnum;
-            header("Location: index.php");
+            if($_SESSION["username"] == "Admin") {
+                    header("Location: admin.php");
+            } else {       
+                header("Location: index.php");
+            }
         } else {
             echo '   Invalid password.';
         }

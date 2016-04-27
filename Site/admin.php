@@ -6,7 +6,9 @@
 <body>
 <?php
 session_start();
-
+if($_SESSION["username"] != "Admin") {
+    header("Location: home.php");
+}
 include("navbar.php");
 include("profileController.php");
 

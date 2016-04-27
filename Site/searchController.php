@@ -1,37 +1,42 @@
 <?php
 
-if(isset($_POST[uidToAdd])){
-    if(isset($_POST[uid])) {
+if (isset($_POST[uidToAdd])) {
+    if (isset($_POST[uid])) {
         $uid = $_POST[uidToAdd];
         $myid = $_POST[uid];
         createConnection($uid, $myid);
     }
 }
 
-function populateUsers($q, $usersPerRow, $connectButton)
+function populateUsers($q, $usersPerRow, $printConnectButton, $userID)
 {
     include("../secure/secure.php");
     $link = mysqli_connect($site, $user, $pass, $db) or die("Connect Error " . mysqli_error($link));
     if ($q == "") {
-        $result = mysqli_query($link, "SELECT * FROM `users` ORDER BY fName");
-        getUsersFromResult($result, $usersPerRow, $connectButton);
-        mysqli_free_result($result);
+        $sql = "SELECT uIDnum, profile_picture, fName, lName FROM `users` WHERE (uIDnum != ? AND uIDnum != ?) ORDER BY fName";
     } else {
-        $query = 'SELECT uIDnum, profile_picture, fName, lName FROM `users` WHERE fName LIKE ? OR lName LIKE ? ORDER BY fName';
-        $stmt = $link->stmt_init();
-        if ($stmt->prepare($query)) {
-            $q = "%" . $q . "%";
-            $stmt->bind_param("ss", $q, $q);
-            $stmt->execute();
-            $result = $stmt->get_result();
-            getUsersFromResult($result, $usersPerRow, $connectButton);
+        $sql = 'SELECT uIDnum, profile_picture, fName, lName FROM `users` WHERE (fName LIKE ? OR lName LIKE ?) AND uIDnum != ? AND uIDnum != ? ORDER BY fName';
+    }
+    $stmt = $link->stmt_init();
+    if ($stmt->prepare($sql)) {
+        $adminID = 527973283;
+        if($q == "") {
+            $stmt->bind_param("ii", $userID, $adminID);
         } else {
-            echo "Prepare issue";
+            $q = "%" . $q . "%";
+            $stmt->bind_param("ssii", $q, $q, $userID, $adminID);
         }
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($printConnectButton) {
+            getUsersFromResult($result, $usersPerRow, true, false);
+        }
+    } else {
+        echo "Prepare issue" . $stmt->error;
     }
 }
 
-function getUsersFromResult($result, $usersPerRow, $connectButton)
+function getUsersFromResult($result, $usersPerRow, $connectButton, $disconnectButton)
 {
     while ($row = mysqli_fetch_assoc($result)) {
         $i = 0;
@@ -39,7 +44,7 @@ function getUsersFromResult($result, $usersPerRow, $connectButton)
         for ($i; $i < $usersPerRow; $i++) {
             if ($i == 0 || ($row = mysqli_fetch_assoc($result))) {
                 echo "<div class='col-lg-2'>";
-                printUser($row[uIDnum], $row[profile_picture], $row[fName], $row[lName], $connectButton);
+                printUser($row[uIDnum], $row[profile_picture], $row[fName], $row[lName], $connectButton, $disconnectButton);
                 echo "</div>";
             } else {
                 break;
@@ -50,7 +55,7 @@ function getUsersFromResult($result, $usersPerRow, $connectButton)
 }
 
 
-function printUser($uid, $picPath, $fName, $lName, $withConnectButton)
+function printUser($uid, $picPath, $fName, $lName, $withConnectButton, $disconnectButton)
 {
     if ($picPath == "empty" || $picPath == "") {
         $picPath = "../img/no_profile.jpg";
@@ -69,18 +74,21 @@ function printUser($uid, $picPath, $fName, $lName, $withConnectButton)
     <?php if ($withConnectButton) { ?>
     <div class="row">
         <div class="col-lg-12">
-            <div class="btn btn-success" style="height: 2em; width: 8em">Connect<p class="hidden" style="display: none"><?php echo $uid ?></p></div>
+            <div class="btn btn-success" style="height: 2em; width: 8em">Connect<p class="hidden"
+                                                                                   style="display: none"><?php echo $uid ?></p>
+            </div>
         </div>
     </div>
     <?php
 }
 }
 
-function createConnection($id1, $id2){
+function createConnection($id1, $id2)
+{
     include("../secure/secure.php");
     $link = mysqli_connect($site, $user, $pass, $db) or die("Connect Error " . mysqli_error($link));
     $sql = "INSERT INTO `connections` (uIDnum1, uIDnum2) VALUES ($id1, $id2)";
-    if($link->query($sql) === TRUE){
+    if ($link->query($sql) === TRUE) {
         echo "1";
         $link->close();
     } else {

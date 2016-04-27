@@ -1,4 +1,13 @@
 <?php
+
+if(isset($_POST[uidToAdd])){
+    if(isset($_POST[uid])) {
+        $uid = $_POST[uidToAdd];
+        $myid = $_POST[uid];
+        createConnection($uid, $myid);
+    }
+}
+
 function populateUsers($q, $usersPerRow, $connectButton)
 {
     include("../secure/secure.php");
@@ -60,11 +69,24 @@ function printUser($uid, $picPath, $fName, $lName, $withConnectButton)
     <?php if ($withConnectButton) { ?>
     <div class="row">
         <div class="col-lg-12">
-            <div class="btn btn-success" style="height: 2em; width: 8em">Connect</div>
+            <div class="btn btn-success" style="height: 2em; width: 8em">Connect<p class="hidden" style="display: none"><?php echo $uid ?></p></div>
         </div>
     </div>
     <?php
 }
+}
+
+function createConnection($id1, $id2){
+    include("../secure/secure.php");
+    $link = mysqli_connect($site, $user, $pass, $db) or die("Connect Error " . mysqli_error($link));
+    $sql = "INSERT INTO `connections` (uIDnum1, uIDnum2) VALUES ($id1, $id2)";
+    if($link->query($sql) === TRUE){
+        echo "1";
+        $link->close();
+    } else {
+        echo $link->errno . ": " . $link->error;
+        $link->close();
+    }
 }
 
 ?>

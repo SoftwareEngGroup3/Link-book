@@ -20,23 +20,42 @@ include("searchController.php");
         </div>
     </div>
 
-    <?php if(isset($_GET[q])){
+    <?php if (isset($_GET[q])) {
         populateUsers($_GET[q], 5, true);
     } else {
         populateUsers("", 5, true);
-    }?>
+    } ?>
 </div>
 </body>
 <script>
-    $(document).ready(function(){
-        $("#searchBtn").click(function(){
+    $(document).ready(function () {
+        $("#searchBtn").click(function () {
             window.location.href = "search.php" + "?q=" + $("#searchField").val();
         });
-    });
-    $(document).keypress(function(e) {
-        if(e.which == 13) {
-            $("#searchBtn").click();
-        }
+        $(document).keypress(function (e) {
+            if (e.which == 13) {
+                $("#searchBtn").click();
+            }
+        });
+        $(".btn-success").click(function (){
+            var personID = $(this).find("p").html();
+            var btn = $(this);
+            $.ajax({
+                type: 'POST',
+                url: "searchController.php",
+                data: {uidToAdd: personID, uid: "<?php echo $_SESSION[uid] ?>"},
+                success: function(result){
+                    if(result == "1"){
+                        btn.toggleClass("btn-success");
+                        btn.toggleClass("btn-danger");
+                        btn.html("Disconnect");
+                    } else {
+                        alert(result);
+                    }
+                },
+                dataType: "html",
+            });
+        });
     });
 
 </script>

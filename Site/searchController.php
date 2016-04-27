@@ -1,37 +1,34 @@
 <?php
-function populateUsers($query, $usersPerRow, $connectButton)
+function populateUsers($q, $usersPerRow, $connectButton)
 {
     include("../secure/secure.php");
-    echo "Query: " . $query . "       ";
-    echo "PHP VERSION:" . phpversion();
     $link = mysqli_connect($site, $user, $pass, $db) or die("Connect Error " . mysqli_error($link));
-    if ($query == "") {
+    if ($q == "") {
         $result = mysqli_query($link, "SELECT * FROM `users` ORDER BY fName");
         getUsersFromResult($result, $usersPerRow, $connectButton);
         mysqli_free_result($result);
     } else {
-        $query = "SELECT * FROM `users` WHERE fName LIKE ? OR lName LIKE ? ORDER BY fName";
+        $query = 'SELECT uIDnum, profile_picture, fName, lName FROM `users` WHERE fName LIKE ? OR lName LIKE ? ORDER BY fName';
         $stmt = $link->stmt_init();
-        echo "1";
-        if ($stmt->prepare($query)) {
-            echo "2";
-            $stmt->bind_param("ss", $query, $query);
-            //print($stmt);
-            echo "3";
+        if ($stmt->prepare($query)){
+            $stmt->bind_param("ss", $q, $q);
             $stmt->execute();
-            echo "4";
-            echo "...";
-            //if ($stmt->store_result()) {
-                if ($result = $stmt->get_result()) {
-                    echo "5";
-                    print_r($result);
-                    getUsersFromResult($result, $usersPerRow, $connectButton);
-                } else {
-                    echo "No Results Found: " . $link->errno;
-                }
-            //} else {
-             //   echo "couldnt store result";
-            //}
+            //$stmt->store_result();
+            //print_r($stmt);
+            //$stmt->bind_result($uid, $picPath, $fName, $lName);
+            $result = $stmt->get_result();
+            //print_r($result);
+            getUsersFromResult($result, $usersPerRow, $connectButton);
+            //$stmt->fetch();
+            //echo $fName;
+            /*for($i = 0; $i < $numRows; $i++){
+                echo "<div class='col-lg-2'>";
+                print "5";
+                //$stmt->bind_result($uid, $picPath, $fName, $lName);
+                printUser($uid, $picPath, $fName, $lName, $connectButton);
+                echo "</div>";
+                $stmt->next_result();
+            }*/
         } else {
             echo "Prepare issue";
         }
@@ -40,12 +37,10 @@ function populateUsers($query, $usersPerRow, $connectButton)
 
 function getUsersFromResult($result, $usersPerRow, $connectButton)
 {
-    echo "bloop";
     while ($row = mysqli_fetch_assoc($result)) {
         $i = 0;
         echo "<div class='row' style='padding-bottom: 2em'>";
         for ($i; $i < $usersPerRow; $i++) {
-            echo $i;
             if ($i == 0 || ($row = mysqli_fetch_assoc($result))) {
                 echo "<div class='col-lg-2'>";
                 printUser($row[uIDnum], $row[profile_picture], $row[fName], $row[lName], $connectButton);
@@ -60,7 +55,7 @@ function getUsersFromResult($result, $usersPerRow, $connectButton)
 
 function printUser($uid, $picPath, $fName, $lName, $withConnectButton)
 {
-    if ($picPath == "empty") {
+    if ($picPath == "empty" || $picPath == "") {
         $picPath = "../img/no_profile.jpg";
     }
     ?>

@@ -13,22 +13,8 @@ function populateUsers($q, $usersPerRow, $connectButton)
         if ($stmt->prepare($query)){
             $stmt->bind_param("ss", $q, $q);
             $stmt->execute();
-            //$stmt->store_result();
-            //print_r($stmt);
-            //$stmt->bind_result($uid, $picPath, $fName, $lName);
             $result = $stmt->get_result();
-            //print_r($result);
             getUsersFromResult($result, $usersPerRow, $connectButton);
-            //$stmt->fetch();
-            //echo $fName;
-            /*for($i = 0; $i < $numRows; $i++){
-                echo "<div class='col-lg-2'>";
-                print "5";
-                //$stmt->bind_result($uid, $picPath, $fName, $lName);
-                printUser($uid, $picPath, $fName, $lName, $connectButton);
-                echo "</div>";
-                $stmt->next_result();
-            }*/
         } else {
             echo "Prepare issue";
         }

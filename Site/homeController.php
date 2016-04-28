@@ -16,6 +16,8 @@ function populateStatuses()
         }
         echo "</div>";
     }
+
+    mysqli_free_result($result);
 }
 
 function printStatus($picPath, $uid, $fName, $lName, $text)

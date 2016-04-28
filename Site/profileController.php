@@ -64,6 +64,7 @@ function printStatusBlock($uid, $minCells, $maxCells)
         printStatusCell("", $index, $numCells);
         $index += 1;
     }
+    mysqli_free_result($result);
 }
 
 function printStatusCell($content, $index, $numCells)

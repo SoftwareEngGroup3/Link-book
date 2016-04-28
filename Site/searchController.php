@@ -1,10 +1,17 @@
 <?php
 
-if (isset($_POST[uidToAdd])) {
+if (isset($_POST[uidToChange])) {
     if (isset($_POST[uid])) {
-        $uid = $_POST[uidToAdd];
+        $uid = $_POST[uidToChange];
         $myid = $_POST[uid];
-        createConnection($uid, $myid);
+        if (isset($_POST[addConnection])) {
+            $add = $_POST[addConnection];
+            if($add == "true") {
+                createConnection($uid, $myid);
+            } else {
+                destroyConnection($uid, $myid);
+            }
+        }
     }
 }
 
@@ -20,7 +27,7 @@ function populateUsers($q, $usersPerRow, $withConnectButton, $userID)
     $stmt = $link->stmt_init();
     if ($stmt->prepare($sql)) {
         $adminID = 527973283;
-        if($q == "") {
+        if ($q == "") {
             $stmt->bind_param("ii", $userID, $adminID);
         } else {
             $q = "%" . $q . "%";
@@ -46,8 +53,8 @@ function getUsersFromResult($result, $usersPerRow, $withConnectButton, $userID)
         for ($i; $i < $usersPerRow; $i++) {
             if ($i == 0 || ($row = mysqli_fetch_assoc($result))) {
                 echo "<div class='col-lg-2'>";
-                if($withConnectButton) {
-                    if(usersAreConnected($userID, $row[uIDnum])) {
+                if ($withConnectButton) {
+                    if (usersAreConnected($userID, $row[uIDnum])) {
                         printUser($row[uIDnum], $row[profile_picture], $row[fName], $row[lName], false, true);
                     } else {
                         printUser($row[uIDnum], $row[profile_picture], $row[fName], $row[lName], true, false);
@@ -84,22 +91,28 @@ function printUser($uid, $picPath, $fName, $lName, $withConnectButton, $withDisc
     <?php if ($withConnectButton) { ?>
     <div class="row">
         <div class="col-lg-12">
-            <div class="btn btn-success" style="height: 2em; width: 8em">Connect<p class="hidden"
-                                                                                   style="display: none"><?php echo $uid ?></p>
+            <div class="btn btn-success changeButton" style="height: 2em; width: 8em">
+                <p class="posit">Connect</p>
+                <p class="hidden" style="display: none">
+                    <?php echo $uid ?>
+                </p>
             </div>
         </div>
     </div>
-    <?php }
-    if ($withDisconnectButton){ ?>
+<?php }
+    if ($withDisconnectButton) { ?>
         <div class="row">
             <div class="col-lg-12">
-                <div class="btn btn-danger" style="height: 2em; width: 8em">Disconnect<p class="hidden"
-                                                                                       style="display: none"><?php echo $uid ?></p>
+                <div class="btn btn-danger changeButton" style="height: 2em; width: 8em">
+                    <p class="posit">Disconnect</p>
+                    <p class="hidden" style="display: none">
+                        <?php echo $uid ?>
+                    </p>
                 </div>
             </div>
         </div>
-    <?php
-}
+        <?php
+    }
 }
 
 function createConnection($id1, $id2)
@@ -116,18 +129,37 @@ function createConnection($id1, $id2)
     }
 }
 
-function usersAreConnected($user1, $user2){
+function usersAreConnected($user1, $user2)
+{
     include("../secure/secure.php");
     $link = mysqli_connect($site, $user, $pass, $db) or die("Connect Error " . mysqli_error($link));
     $result = $link->query("SELECT uIDnum1, uIDnum2 FROM `connections` WHERE uIDnum1 = $user1 OR uIDnum2 = $user1");
-    while($row = $result->fetch_assoc()){
-        if($row[uIDnum1] == $user2 || $row[uIDnum2] == $user2){
+    while ($row = $result->fetch_assoc()) {
+        if ($row[uIDnum1] == $user2 || $row[uIDnum2] == $user2) {
             $link->close();
             $result->close();
             return true;
         }
     }
     return false;
+}
+
+function destroyConnection($user1, $user2)
+{
+    include("../secure/secure.php");
+    $link = mysqli_connect($site, $user, $pass, $db) or die("Connect Error " . mysqli_error($link));
+    $result = $link->query("DELETE FROM `connections` WHERE (uIDnum1 = $user1 AND uIDnum2 = $user2) OR (uIDnum1 = $user2 AND uIDnum2 = $user1)");
+    if ($link->affected_rows == 1) {
+        echo "1";
+        $link->close();
+    } else {
+        if ($link->affected_rows == 0) {
+            echo "No connections were removed";
+        } else {
+            echo "Too MANY connections were removed. Please contact site admins.";
+        }
+        $link->close();
+    }
 }
 
 

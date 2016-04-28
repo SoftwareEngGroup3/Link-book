@@ -37,24 +37,46 @@ include("searchController.php");
                 $("#searchBtn").click();
             }
         });
-        $(".btn-success").click(function (){
-            var personID = $(this).find("p").html();
+        $(".changeButton").click(function () {
+            var personID = $(this).find(".hidden").html();
             var btn = $(this);
-            $.ajax({
-                type: 'POST',
-                url: "searchController.php",
-                data: {uidToAdd: personID, uid: "<?php echo $_SESSION[uid] ?>"},
-                success: function(result){
-                    if(result == "1"){
-                        btn.toggleClass("btn-success");
-                        btn.toggleClass("btn-danger");
-                        btn.html("Disconnect");
-                    } else {
-                        alert(result);
-                    }
-                },
-                dataType: "html",
-            });
+            var positionElement = $(this).find(".posit");
+            var currentPosition = positionElement.html();
+            if (currentPosition == "Connect") {
+                $.ajax({
+                    type: 'POST',
+                    url: "searchController.php",
+                    data: {uidToChange: personID, uid: "<?php echo $_SESSION[uid] ?>", addConnection: "true"},
+                    success: function (result) {
+                        if (result == "1") {
+                            btn.toggleClass("btn-success");
+                            btn.toggleClass("btn-danger");
+                            positionElement.html("Disconnect");
+                        } else {
+                            alert(result);
+                        }
+                    },
+                    dataType: "html"
+                });
+            } else {
+                //alert("Trying to disconnect...");
+                $.ajax({
+                    type: 'POST',
+                    url: "searchController.php",
+                    data: {uidToChange: personID, uid: "<?php echo $_SESSION[uid] ?>", addConnection: "false"},
+                    success: function (result) {
+                        if (result == "1") {
+                            btn.toggleClass("btn-danger");
+                            btn.toggleClass("btn-success");
+                            positionElement.html("Connect");
+                            //alert(result);
+                        } else {
+                            alert(result);
+                        }
+                    },
+                    dataType: "html"
+                });
+            }
         });
     });
 

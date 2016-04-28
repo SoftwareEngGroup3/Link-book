@@ -15,12 +15,12 @@ if (isset($_POST[uidToChange])) {
     }
 }
 
-function populateUsers($q, $usersPerRow, $withConnectButton, $userID)
+function populateUsers($q, $usersPerRow, $withConnectButton, $userID, $connectionsOnly)
 {
     include("../secure/secure.php");
     $link = mysqli_connect($site, $user, $pass, $db) or die("Connect Error " . mysqli_error($link));
     if ($q == "") {
-        $sql = "SELECT uIDnum, profile_picture, fName, lName FROM `users` WHERE (uIDnum != ? AND uIDnum != ?) ORDER BY fName";
+            $sql = "SELECT uIDnum, profile_picture, fName, lName FROM `users` WHERE (uIDnum != ? AND uIDnum != ?) ORDER BY fName";
     } else {
         $sql = 'SELECT uIDnum, profile_picture, fName, lName FROM `users` WHERE (fName LIKE ? OR lName LIKE ?) AND uIDnum != ? AND uIDnum != ? ORDER BY fName';
     }
@@ -35,7 +35,7 @@ function populateUsers($q, $usersPerRow, $withConnectButton, $userID)
         }
         $stmt->execute();
         $result = $stmt->get_result();
-        getUsersFromResult($result, $usersPerRow, $withConnectButton, $userID);
+        getUsersFromResult($result, $usersPerRow, $withConnectButton, $userID, $connectionsOnly);
 
     } else {
         echo "Prepare issue" . $stmt->error;
@@ -45,29 +45,59 @@ function populateUsers($q, $usersPerRow, $withConnectButton, $userID)
     $link->close();
 }
 
-function getUsersFromResult($result, $usersPerRow, $withConnectButton, $userID)
+function getUsersFromResult($result, $usersPerRow, $withConnectButton, $userID, $connectionsOnly)
 {
+    if($connectionsOnly) {
+        $count = 0;
+    } else {
+        $count = 5; //Don't want the no-connections message appearing on search
+    }
     while ($row = mysqli_fetch_assoc($result)) {
+        $firstRow = true;
         $i = 0;
         echo "<div class='row' style='padding-bottom: 2em'>";
         for ($i; $i < $usersPerRow; $i++) {
-            if ($i == 0 || ($row = mysqli_fetch_assoc($result))) {
-                echo "<div class='col-lg-2'>";
-                if ($withConnectButton) {
-                    if (usersAreConnected($userID, $row[uIDnum])) {
-                        printUser($row[uIDnum], $row[profile_picture], $row[fName], $row[lName], false, true);
+            if ($firstRow || ($row = mysqli_fetch_assoc($result))) {
+                $firstRow = false;
+                if($connectionsOnly){
+                    if(usersAreConnected($userID, $row[uIDnum])){
+                        $count++;
+                        echo "<div class='col-lg-2'>";
+                        if ($withConnectButton) {
+                            if (usersAreConnected($userID, $row[uIDnum])) {
+                                printUser($row[uIDnum], $row[profile_picture], $row[fName], $row[lName], false, true);
+                            } else {
+                                printUser($row[uIDnum], $row[profile_picture], $row[fName], $row[lName], true, false);
+                            }
+                        } else {
+                            printUser($row[uIDnum], $row[profile_picture], $row[fName], $row[lName], false, false);
+                        }
+                        echo "</div>";
                     } else {
-                        printUser($row[uIDnum], $row[profile_picture], $row[fName], $row[lName], true, false);
+                        $i--;
                     }
                 } else {
-                    printUser($row[uIDnum], $row[profile_picture], $row[fName], $row[lName], false, false);
+                    $count++;
+                    echo "<div class='col-lg-2'>";
+                    if ($withConnectButton) {
+                        if (usersAreConnected($userID, $row[uIDnum])) {
+                            printUser($row[uIDnum], $row[profile_picture], $row[fName], $row[lName], false, true);
+                        } else {
+                            printUser($row[uIDnum], $row[profile_picture], $row[fName], $row[lName], true, false);
+                        }
+                    } else {
+                        printUser($row[uIDnum], $row[profile_picture], $row[fName], $row[lName], false, false);
+                    }
+                    echo "</div>";
                 }
-                echo "</div>";
             } else {
                 break;
             }
         }
         echo "</div>";
+    }
+    if($count == 0){
+        echo "Please add some users to view them on this page!";
     }
 }
 

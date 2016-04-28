@@ -21,9 +21,9 @@ include("searchController.php");
     </div>
 
     <?php if (isset($_GET[q])) {
-        populateUsers($_GET[q], 5, true, $_SESSION[uid]);
+        populateUsers($_GET[q], 5, true, $_SESSION[uid], false);
     } else {
-        populateUsers("", 5, true, $_SESSION[uid]);
+        populateUsers("", 5, true, $_SESSION[uid], false);
     } ?>
 </div>
 </body>

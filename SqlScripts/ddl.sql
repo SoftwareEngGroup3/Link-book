@@ -1,6 +1,22 @@
-CREATE TABLE Users
+-- Get rid of old data
+DROP TABLE IF EXISTS linkbook.gen_users;
+DROP TABLE IF EXISTS linkbook.statuses;
+DROP TABLE IF EXISTS linkbook.profiles;
+DROP TABLE IF EXISTS linkbook.buisness;
+DROP TABLE IF EXISTS linkbook.listing;
+DROP TABLE IF EXISTS linkbook.messages;
+DROP TABLE IF EXISTS linkbook.job_history;
+DROP TABLE IF EXISTS linkbook.education;
+DROP TABLE IF EXISTS linkbook.volunteer_work;
+DROP TABLE IF EXISTS linkbook.connections;
+
+DROP SCHEMA IF EXISTS linkbook;
+CREATE SCHEMA linkbook;
+
+
+CREATE TABLE linkbook.gen_users
 (
-ulDnum INT,
+uIDnum INT,
 fName VARCHAR(30),
 lName VARCHAR(30),
 email VARCHAR(20),
@@ -11,32 +27,32 @@ Education VARCHAR(30),
 profile_picture VARCHAR(50),
 volunteer_work TEXT,
 coding_languages VARCHAR(60),
-PRIMARY KEY (ulDnum)
+PRIMARY KEY (uIDnum)
 );
 
-CREATE TABLE Statuses
+CREATE TABLE  linkbook.statuses
 (
-statid INT,
-ulDnum INT,
+statID INT,
+uIDnum INT,
 content TEXT,
 PRIMARY KEY (statid),
-FOREIGN KEY (ulDnum) REFERENCES Users(ulDnum)
+FOREIGN KEY (uIDnum) REFERENCES linkbook.gen_users(uIDnum)
 );
 
-CREATE TABLE `Profile`
+CREATE TABLE  linkbook.profiles
 (
-prolDnum INT,
+proIDnum INT,
 proOwner VARCHAR(30),
 summery TEXT,
 code_links VARCHAR(60),
 project_screenshots VARCHAR(30),
-PRIMARY KEY (prolDnum)
+PRIMARY KEY (proIDnum)
 );
 
-CREATE TABLE Buisness
+CREATE TABLE  linkbook.buisness
 (
-ulDnum INT,
-blDnum INT,
+uIDnum INT,
+bIDnum INT,
 name VARCHAR(30),
 contact_email VARCHAR(30),
 contact_name VARCHAR(30),
@@ -44,27 +60,29 @@ size INT,
 product VARCHAR(30),
 openings INT,
 photo VARCHAR(30),
-PRIMARY KEY (ulDnum, blDnum),
-FOREIGN KEY (ulDnum) REFERENCES Users(ulDnum)
+PRIMARY KEY (uIDnum, bIDnum),
+FOREIGN KEY (uIDnum) REFERENCES linkbook.gen_users(uIDnum)
 );
 
-CREATE TABLE Listing
+CREATE TABLE  linkbook.listing
 (
-blDnum INT,
+bIDnum INT,
 job_title VARCHAR(30),
 job_description VARCHAR(600),
 qualifications VARCHAR(600),
 starting_pay VARCHAR(30),
-PRIMARY KEY (blDnum)
+PRIMARY KEY (bIDnum)
 );
 
-CREATE TABLE Messages
+CREATE TABLE  linkbook.messages
 (
-msglDnum INT,
+msgIDnum INT,
 send_timestamp TIMESTAMP,
-sender_ulDnum INT,
-receiver_ulDnum INT,
+sender_uIDnum INT,
+receiver_uIDnum INT,
 receiver_timestamp TIMESTAMP,
 contents TEXT,
-PRIMARY KEY (msglDnum)
+PRIMARY KEY (msgIDnum),
+FOREIGN KEY (sender_uIDnum) REFERENCES linkbook.gen_users(uIDnum),
+FOREIGN KEY (receiver_uIDnum) REFERENCES linkbook.gen_users(uIDnum),
 );

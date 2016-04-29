@@ -1,10 +1,10 @@
 
 <?php
-function getBuisData($bid, $uid)
+function getBuisData($uid)
 {
     include("../secure/secure.php");
     $link = mysqli_connect($site, $user, $pass, $db) or die("Connect Error " . mysqli_error($link));
-    $result = mysqli_query($link, "SELECT * FROM `buisness` WHERE bIDnum = $bid");
+    $result = mysqli_query($link, "SELECT * FROM `buisness` WHERE uIDnum = $uid");
     $row = mysqli_fetch_assoc($result);
     return $row;
 }

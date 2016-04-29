@@ -41,10 +41,10 @@ $(document).ready(function(){
             $("#searchTab").detach();
             $("#listingsTab").detach();
             $("#logoutTab a").attr("href", "login.php");
-            $("#logoutTab a").html("Log-In")
+            $("#logoutTab a").html("Log-In");
             break;
         case "login.php":
-            $("#logoutTab a").attr("href", "#")
+            $("#logoutTab a").attr("href", "#");
             break;
         default:
             //$(document).write(window.location.pathname);

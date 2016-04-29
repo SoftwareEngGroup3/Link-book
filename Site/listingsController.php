@@ -12,6 +12,7 @@ function generateListings($query, $colQueried)
             //print_r($busRow);
             printRow($listRow[job_title], $listRow[job_description], $listRow[qualifications], $busRow[name], $listRow[location], $listRow[starting_pay], $busRow[contact_email], $listRow[bIDnum]);
         }
+        mysqli_free_result($result);
     }
 }
 

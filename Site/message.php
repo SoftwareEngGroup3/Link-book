@@ -20,6 +20,8 @@ include("messageController.php");
             $result = mysqli_fetch_assoc(mysqli_query($link, "SELECT * FROM `business` WHERE bIDnum = $bid")) or die("Connect Error: Can't fetch business " . mysqli_error($link));
 
             generateMessages($_SESSION["uid"], $result[uIDnum]);
+            
+            mysqli_free_result($result);
 
         } else {
             header("Location: home.php");

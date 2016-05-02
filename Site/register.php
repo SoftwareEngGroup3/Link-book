@@ -1,25 +1,10 @@
-<?php
-/*
-	if (!isset($_SERVER['HTTPS']) || !$_SERVER['HTTPS']) { // if request is not secure, redirect to secure url
-	   $url = 'https://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-	   header('Location: ' . $url);
-	    //exit;
-	}
-    */
-?>
-
 <html>
 <head>
-    <!--  I USE BOOTSTRAP BECAUSE IT MAKES FORMATTING/LIFE EASIER -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-    <!-- Optional theme -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <!-- Latest compiled and minified JavaScript -->
+    <?php include("header.php") ?>
 </head>
 <body>
 <?php
+include("navbar.php");
 session_start();
 if ($_SESSION["loggedin"] == "true") {
     header("Location: home.php");
@@ -70,7 +55,7 @@ if ($_SESSION["loggedin"] == "true") {
 
         $link = mysqli_connect($site, $user, $pass, $db) or die("Connect Error " . mysqli_error($link));
 
-        $sql = "INSERT INTO users(uIDnum, fName, lName, email, username, salt, hashed_pass, orginization, bio, profile_picture, coding_languages) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+        $sql = "INSERT INTO users(uIDnum, fName, lName, email, username, salt, hashed_pass, organization, bio, profile_picture, coding_languages) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 
         //$sql = "INSERT INTO user(username, salt, hashed_password) VALUES(?,?,?)";
 
@@ -101,7 +86,7 @@ if ($_SESSION["loggedin"] == "true") {
             } else {
                 echo "<h4>Failed</h4>";
             }
-            $result = mysqli_stmt_get_result($stmt);
+            //$result = mysqli_stmt_get_result($stmt);
         } else {
             die("prepare failed");
         }

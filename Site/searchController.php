@@ -161,6 +161,9 @@ function createConnection($id1, $id2)
 
 function usersAreConnected($user1, $user2)
 {
+    if($user1 == $user2){
+        return false;
+    }
     include("../secure/secure.php");
     $link = mysqli_connect($site, $user, $pass, $db) or die("Connect Error " . mysqli_error($link));
     $result = $link->query("SELECT uIDnum1, uIDnum2 FROM `connections` WHERE uIDnum1 = $user1 OR uIDnum2 = $user1");

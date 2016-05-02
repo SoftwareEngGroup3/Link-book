@@ -39,28 +39,20 @@ if (!$link) {
     printf("Connect failed: %s\n", mysqli_connect_error());
     exit();
 }
+printf("got here");
+//$stmt = mysqli_stmt_init($link);
+$status = "status.uIDnum";
+//$query = 'SELECT users.uIDnum , count( status.uIDnum ) AS count FROM `users` , `status` where users.uIDnum = ? group by status.uIDnum';
 
-if ($stmt = mysqli_prepare($link, "SELECT users.uIDnum , count( status.uIDnum ) AS count FROM users , status where users.uIDnum = status.uIDnum group by status.uIDnum;")) {
-    mysqli_stmt_execute($stmt);
-
-    /* bind variables to prepared statement */
-    mysqli_stmt_bind_result($stmt, $userID, $count);
-    $data= array();
-    /* fetch values*/ 
-  while(mysqli_stmt_fetch($stmt)){
-  printf("%d %d\n", $userID, $count);
+    $stmt = $link->stmt_init();
+    if ($stmt->prepare("SELECT users.uIDnum , count( status.uIDnum ) AS count FROM users , status where users.uIDnum = ? group by status.uIDnum")) {
+            $stmt->bind_param("s", $status);
+        }
+        $stmt->execute();
+        $result = $stmt->get_result();
+    } else {
+        echo "Prepare issue" . $stmt->error;
     }
-
-
-}
-
-/*
-mysqli_prepare($stmt, $query);
-//echo $stmt;
-mysqli_stmt_execute($stmt);
-mysqli_stmt_bind_result($stmt, $userID, $count);
-mysqli_stmt_fetch($stmt);
-*/
 ?>
 
 

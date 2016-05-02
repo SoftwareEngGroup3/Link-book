@@ -29,7 +29,7 @@ if($picPath == "empty"){
     </div>
     <div class="col-lg-8" style="padding-left: 2em">
         <?php
-        printBigModule("About Me", $user[bio], $isEditable);
+        printBigModule("About Me TESTING", $user[bio], $isEditable);
         //printBigModule("")
         ?>
     </div>

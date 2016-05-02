@@ -40,6 +40,7 @@ if ($_SESSION["loggedin"] == "true") {
 <div class="row">
     <div class="col-lg-3">
         Need an account? <a href="register.php">Register here</a>
+    <!--    Want to create a business account?<a href="buisnessRegistration.php">Click here</a> -->
     </div>
 </div>
 </div>

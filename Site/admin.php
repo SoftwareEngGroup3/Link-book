@@ -9,8 +9,8 @@
   font: 10px sans-serif;
   background-color: steelblue;
   text-align: right;
-  padding: 3px;
-  margin: 1px;
+  padding: 50px;
+  margin: 25px;
   color: white;
 }
 
@@ -39,30 +39,46 @@ if (!$link) {
     printf("Connect failed: %s\n", mysqli_connect_error());
     exit();
 }
+$stmt = mysqli_stmt_init($link);
 
-if ($stmt = mysqli_prepare($link, "SELECT users.uIDnum , count( status.uIDnum ) AS count FROM users , status where users.uIDnum = status.uIDnum group by status.uIDnum;")) {
+if (mysqli_stmt_prepare($stmt, "SELECT users.uIDnum , count( status.uIDnum ) AS count FROM users , status WHERE users.uIDnum = status.uIDnum GROUP BY status.uIDnum;")) {
+    //printf("<br>in the if stmt\n");
+    
     mysqli_stmt_execute($stmt);
-
-    /* bind variables to prepared statement */
-    mysqli_stmt_bind_result($stmt, $userID, $count);
-    $data= array();
-    /* fetch values*/ 
-  while(mysqli_stmt_fetch($stmt)){
-  printf("%d %d\n", $userID, $count);
-    }
+    $result = mysqli_stmt_get_result($stmt);
+     while ($row = mysqli_fetch_array($result, MYSQLI_NUM))
+        {
+            foreach ($row as $r)
+            {
+                print "$r ";
+            }
+            print "\n";
+        }
+    
 
 
 }
+else {
+  echo "Prepare Error : ". mysqli_error($link);
+}
 
-/*
-mysqli_prepare($stmt, $query);
-//echo $stmt;
-mysqli_stmt_execute($stmt);
-mysqli_stmt_bind_result($stmt, $userID, $count);
-mysqli_stmt_fetch($stmt);
-*/
 ?>
 
+<script>
+var data = <?php echo '["' . implode('", "', $row) . '"]' ?>;
+
+var x = d3.scale.linear()
+    .domain([0, d3.max(data)])
+    .range([0, 420]);
+
+d3.select(".chart")
+  .selectAll("div")
+    .data(data)
+  .enter().append("div")
+    .style("width", function(d) { return x(d) + "px"; })
+    .text(function(d) { return d; });
+
+</script>
 
 </body>
 </html>

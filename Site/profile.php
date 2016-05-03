@@ -171,7 +171,21 @@ function hidepopup5()
    $("#inputform5").css({"visibility":"hidden","display":"none"});
 }
        
-      
+function hideButtons()
+{
+    $("#show_input1").css({"visibility":"hidden","display":"none"});
+}
+function showButtons()
+{
+    $("#show_input1").css({"visibility":"visible","display":"block"});
+}
+     
+if($_SESSION[uid] == $user[uIDnum]) {
+    showButtons();
+}   
+else{
+    hideButtons();
+}
     
 </script>
 
@@ -187,7 +201,7 @@ function hidepopup5()
                 
             <form action="<?= $_SERVER['PHP_SELF'] ?>" method="POST" id="inputform1" class="inputform">
                 
-                <input type = "image" id = "close_input1" src = "close.png" class="close_input">
+                <input type = "image" id = "close_input1" src = "close.png" class="close_input" type = "button">
                 
                 <div class="updateButton">
                     <div class="ui input">
@@ -219,21 +233,81 @@ function hidepopup5()
                 <div class="updateButton">
                     <input class=" btn btn-default" type="submit" name="updateEmail" required="required" value="Update"/>
                 </div>
-            </form>              
+            </form>       
+                
+                
+            <form action="<?= $_SERVER['PHP_SELF'] ?>" method="POST" id="inputform3" class="inputform">
+                
+                <input type = "image" id = "close_input3" src = "close.png" class="close_input">
+                
+                <div class="updateOrg">
+                    <div class="ui input">
+                        <input type="text" name="organization"  required="required"  placeholder="<?php echo $user[organization]; ?>"/>
+                    </div>
+                </div>
+
+                <div class="updateButton">
+                    <input class=" btn btn-default" type="submit" name="updateOrg" required="required" value="Update"/>
+                </div>
+            </form>       
+                
+                
+ 
+            <form action="<?= $_SERVER['PHP_SELF'] ?>" method="POST" id="inputform4" class="inputform">
+                
+                <input type = "image" id = "close_input4" src = "close.png" class="close_input">
+                
+                <div class="updateCode">
+                    <div class="ui input">
+                        <input type="text" name="coding_languages"  required="required"  placeholder="<?php echo $user[coding_languages]; ?>"/>
+                    </div>
+                </div>
+
+                <div class="updateButton">
+                    <input class=" btn btn-default" type="submit" name="updateCode" required="required" value="Update"/>
+                </div>
+            </form>       
+                
+ 
+            <form action="<?= $_SERVER['PHP_SELF'] ?>" method="POST" id="inputform5" class="inputform">
+                
+                <input type = "button" type = "image" id = "close_input5" src = "close.png" class="close_input">
+                
+                <div class="updateBio">
+                    <div class="ui input">
+                        <textarea name="bio"  required="required" > <?php echo $user[bio]; ?> </textarea>
+                    </div>
+                </div>
+
+                <div class="updateButton">
+                    <input class=" btn btn-default" type="submit" name="updateBio" required="required" value="Update"/>
+                </div>
+            </form>     
+                
+                
                 
             </div>        
                    
         </div>
         
-        
+            
             <?php printSmallModule($user[fName]." ".$user[lName]); ?>
-            <input type="button" id="show_input1" value="Edit">
+            <?php if($_SESSION[uid] == $user[uIDnum]) {?>
+                <input type="button" id="show_input1" value="Edit">
+            <?php } ?>
             <?php printSmallModule($user[email]); ?>
-            <input type="button" id="show_input2" value="Edit">
+            <?php if($_SESSION[uid] == $user[uIDnum]) {?>
+                <input type="button" id="show_input2" value="Edit">
+            <?php } ?>
             <?php printSmallModule($user[organization]); ?>
-            <input type="button" id="show_input3" value="Edit">
+            <?php if($_SESSION[uid] == $user[uIDnum]) {?>
+                <input type="button" id="show_input3" value="Edit">
+            <?php } ?>
             <?php printSmallModule($user[coding_languages]); ?>
-            <input type="button" id="show_input4" value="Edit">
+            <?php if($_SESSION[uid] == $user[uIDnum]) {?>
+                <input type="button" id="show_input4" value="Edit">
+            <?php } ?>
+
         
         
     </div>
@@ -242,7 +316,9 @@ function hidepopup5()
         printBigModule("About Me", $user[bio]);
         //printBigModule("")
         ?>
-        <input type="button" id="show_input5" value="Edit">
+        <?php if($_SESSION[uid] == $user[uIDnum]) {?>
+            <input type="button" id="show_input5" value="Edit">
+        <?php } ?>
         
     </div>
     <div class="col-lg-2">
@@ -306,7 +382,71 @@ function hidepopup5()
                 } 
             }
 
+            else if (isset($_POST['updateCode'])) {
+                include("../secure/secure.php");
+                $link = mysqli_connect($site, $user, $pass, $db) or die("Connect Error " . mysqli_error($link));
+                
+                $sql = "UPDATE users SET coding_languages = ? WHERE uIDnum = ?";
+                
+                if ($stmt = mysqli_prepare($link, $sql)) {
+                    
+                    $coding_languages = $_POST['coding_languages']; 
+                    $uIDnum = $_SESSION[uid];
+                    
+                    mysqli_stmt_bind_param($stmt, "si", $coding_languages, $uIDnum) or die("bind param");
+                    
+                    if (mysqli_stmt_execute($stmt)) {
+                        echo "<h4>Success</h4>";
+                    } 
+                    else {
+                        echo "<h4>Failed</h4>";
+                    }
+                } 
+            }
 
+            else if (isset($_POST['updateOrg'])) {
+                include("../secure/secure.php");
+                $link = mysqli_connect($site, $user, $pass, $db) or die("Connect Error " . mysqli_error($link));
+                
+                $sql = "UPDATE users SET organization = ? WHERE uIDnum = ?";
+                
+                if ($stmt = mysqli_prepare($link, $sql)) {
+                    
+                    $organization = $_POST['organization']; 
+                    $uIDnum = $_SESSION[uid];
+                    
+                    mysqli_stmt_bind_param($stmt, "si", $organization, $uIDnum) or die("bind param");
+                    
+                    if (mysqli_stmt_execute($stmt)) {
+                        echo "<h4>Success</h4>";
+                    } 
+                    else {
+                        echo "<h4>Failed</h4>";
+                    }
+                } 
+            }
+
+            else if (isset($_POST['updateBio'])) {
+                include("../secure/secure.php");
+                $link = mysqli_connect($site, $user, $pass, $db) or die("Connect Error " . mysqli_error($link));
+                
+                $sql = "UPDATE users SET bio = ? WHERE uIDnum = ?";
+                
+                if ($stmt = mysqli_prepare($link, $sql)) {
+                    
+                    $bio = $_POST['bio']; 
+                    $uIDnum = $_SESSION[uid];
+                    
+                    mysqli_stmt_bind_param($stmt, "si", $bio, $uIDnum) or die("bind param");
+                    
+                    if (mysqli_stmt_execute($stmt)) {
+                        echo "<h4>Success</h4>";
+                    } 
+                    else {
+                        echo "<h4>Failed</h4>";
+                    }
+                } 
+            }
 
 
             

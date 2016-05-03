@@ -2,14 +2,16 @@
 <head>
     <title>Linkbook &mdash; Administration</title>
     <?php include("header.php");?> 
-    <script src="//d3js.org/d3.v3.min.js"></script>    
+    <script src="//d3js.org/d3.v3.min.js"></script> 
+    <!--<script src="/js/fusioncharts.js"></script> 
+    <script src="/js/fusioncharts.charts.js"></script>-->  
 <style>
 
 .chart div {
   font: 10px sans-serif;
   background-color: steelblue;
   text-align: right;
-  padding: 50px;
+  padding: 25px;
   margin: 25px;
   color: white;
 }
@@ -30,9 +32,10 @@ include("profileController.php");
     <h1>Welcome <?php echo $_SESSION["username"] ?>
 </div>
 
-<div class="chart"></div>
+
 <?php
 include("../secure/secure.php");
+//include("includes/fusioncharts.php");
 $link = mysqli_connect($site, $user, $pass, $db) or die("Connect Error " . mysqli_error($link));
 
 if (!$link) {
@@ -46,26 +49,34 @@ if (mysqli_stmt_prepare($stmt, "SELECT users.uIDnum , count( status.uIDnum ) AS 
     
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
-     while ($row = mysqli_fetch_array($result, MYSQLI_NUM))
+     $x = 0;
+
+     while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
         {
+          $rows = array();
+          $rows = $row;
+          echo "<br>";
             foreach ($row as $r)
             {
                 print "$r ";
             }
             print "\n";
+            $x++;
         }
-    
-
-
+        /*$jsonEncodedData = json_encode($arrData);
+        $columnChart = new FusionCharts("column2D", "myFirstChart" , 600, 300, "chart-1", "json", $jsonEncodedData);
+        $columnChart->render();*/
 }
 else {
   echo "Prepare Error : ". mysqli_error($link);
 }
-
 ?>
+<div class="chart"></div>
 
 <script>
-var data = <?php echo '["' . implode('", "', $row) . '"]' ?>;
+
+var data = [<?=implode(',', $rows);?>];
+console.log(data);
 
 var x = d3.scale.linear()
     .domain([0, d3.max(data)])
@@ -77,7 +88,6 @@ d3.select(".chart")
   .enter().append("div")
     .style("width", function(d) { return x(d) + "px"; })
     .text(function(d) { return d; });
-
 </script>
 
 </body>

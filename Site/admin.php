@@ -46,26 +46,28 @@ if (mysqli_stmt_prepare($stmt, "SELECT users.uIDnum , count( status.uIDnum ) AS 
     
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
-     while ($row = mysqli_fetch_array($result, MYSQLI_NUM))
+     $x = 0;
+     while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
         {
+          $rows[] = $row;
+          echo "<br>";
             foreach ($row as $r)
             {
                 print "$r ";
             }
             print "\n";
+            $x++;
         }
-    
-
-
 }
 else {
   echo "Prepare Error : ". mysqli_error($link);
 }
 
 ?>
-
 <script>
-var data = <?php echo '["' . implode('", "', $row) . '"]' ?>;
+
+var data = [<?=implode(',', $rows);?>];
+console.log(data);
 
 var x = d3.scale.linear()
     .domain([0, d3.max(data)])

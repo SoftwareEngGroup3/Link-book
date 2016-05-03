@@ -8,7 +8,7 @@
 include("checksession.php");
 include("navbar.php");
 include("homeController.php");
-populateStatuses();
+populateStatuses($_SESSION[uid]);
 ?>
 </div>
 </body>

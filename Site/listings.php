@@ -27,18 +27,18 @@ include("listingsController.php");
 <script>
     $(document).ready(function () {
         $("#submitButton").click(function () {
-            var jobTitle = $("#jobTitle").html();
-            var company = $("#company").html();
-            var location = $("#location").html();
-            var desc = $("#description").html();
-            var qual = $("#qualifications").html();
-            var pay = $("#startingPay").html();
-            var cont = $("#contactInfo").html();
+            var jobTitle = $("#jobTitle").val();
+            var company = $("#company").val();
+            var location = $("#location").val();
+            var desc = $("#description").val();
+            var qual = $("#qualifications").val();
+            var pay = $("#startingPay").val();
+            var cont = $("#contactInfo").val();
 
             $.ajax({
                 type: 'POST',
                 url: 'listingsController.php',
-                data: {jobTitle: jobTitle, company: company, location: location, desc: desc, qual: qual, pay: pay, cont: cont},
+                data: {jobTitle: jobTitle, company: company, location: location, desc: desc, qual: qual, pay: pay, cont: cont, uid: <?php echo $_SESSION['uid'] ?>},
                 success: function(result) {
                     alert(result);
                     window.location.href = "listings.php";

@@ -1,4 +1,25 @@
 <?php
+
+if(isset($_POST['uid'], $_POST['jobTitle'],$_POST['company'],$_POST['location'],$_POST['desc'],$_POST['qual'],$_POST['pay'],$_POST['cont'])){
+    insertRow($_POST['jobTitle'],$_POST['company'],$_POST['location'],$_POST['desc'],$_POST['qual'],$_POST['pay'],$_POST['cont']);
+}
+
+function insertRow($jobTitle, $company, $location, $desc, $qual, $pay, $contactInfo){
+    include("../secure/secure.php");
+    $link = mysqli_connect($site, $user, $pass, $db) or die("Connect Error " . mysqli_error($link));
+    $sql = "INSERT INTO listing(bIDnum, job_title, job_description, qualifications, starting_pay, location, contactInfo, companyName) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+    $stmt = $link->stmt_init();
+    if ($stmt->prepare($sql)){
+        $bIDnum = 2;
+        $stmt->bind_param("isssssss", $bIDnum, $jobTitle, $desc, $qual, $pay, $location, $contactInfo, $company);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        echo "Row Added!";
+    } else {
+        echo "Prepare Issue: " . $stmt->error;
+    }
+}
+
 function generateListings($query, $colQueried)
 {
     include("../secure/secure.php");
@@ -21,7 +42,7 @@ function generateListings($query, $colQueried)
             <td><input type="text" style="width: 8em" placeholder="Qualifications" id="qualifications"></td>
             <td><input type="text" style="width: 8em" placeholder="Starting Pay" id="startingPay"></td>
             <td><input type="text" style="width: 8em" placeholder="Contact Info" id="contactInfo"></td>
-            <td><div class="btn btn-success" id="submitButtonc">Submit</div></td>
+            <td><div class="btn btn-success" id="submitButton">Submit</div></td>
 
 
         </tr>

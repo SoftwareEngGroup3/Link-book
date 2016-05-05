@@ -24,3 +24,27 @@ include("listingsController.php");
     </table>
 </div>
 </body>
+<script>
+    $(document).ready(function () {
+        $("#submitButton").click(function () {
+            var jobTitle = $("#jobTitle").html();
+            var company = $("#company").html();
+            var location = $("#location").html();
+            var desc = $("#description").html();
+            var qual = $("#qualifications").html();
+            var pay = $("#startingPay").html();
+            var cont = $("#contactInfo").html();
+
+            $.ajax({
+                type: 'POST',
+                url: 'listingsController.php',
+                data: {jobTitle: jobTitle, company: company, location: location, desc: desc, qual: qual, pay: pay, cont: cont},
+                success: function(result) {
+                    alert(result);
+                    window.location.href = "listings.php";
+                },
+                dataType: "html"
+            });
+        });
+    });
+</script>

@@ -14,14 +14,14 @@ function generateListings($query, $colQueried)
         }
         ?>
         <tr style="height: 2em;">
-            <td><input type="text" style="width: 8em" placeholder="Job Title"></td>
-            <td><input type="text" style="width: 8em" placeholder="Company"></td>
-            <td><input type="text" style="width: 8em" placeholder="Location"></td>
-            <td><input type="text" style="width: 8em" placeholder="Description"></td>
-            <td><input type="text" style="width: 8em" placeholder="Qualifications"></td>
-            <td><input type="text" style="width: 8em" placeholder="Starting Pay"></td>
-            <td><input type="text" style="width: 8em" placeholder="Contact Info"></td>
-            <td><div class="btn btn-success">Submit</div></td>
+            <td><input type="text" style="width: 8em" placeholder="Job Title" id="jobTitle"></td>
+            <td><input type="text" style="width: 8em" placeholder="Company" id="company"></td>
+            <td><input type="text" style="width: 8em" placeholder="Location" id="location"></td>
+            <td><input type="text" style="width: 8em" placeholder="Description" id="description"></td>
+            <td><input type="text" style="width: 8em" placeholder="Qualifications" id="qualifications"></td>
+            <td><input type="text" style="width: 8em" placeholder="Starting Pay" id="startingPay"></td>
+            <td><input type="text" style="width: 8em" placeholder="Contact Info" id="contactInfo"></td>
+            <td><div class="btn btn-success" id="submitButtonc">Submit</div></td>
 
 
         </tr>

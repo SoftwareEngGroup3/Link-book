@@ -9,7 +9,7 @@ include("navbar.php");
 include("listingsController.php");
 ?>
 <div class="container">
-    <table border="2" class="table">
+    <table border="2" class="table" id="listingsTable">
         <tr bgcolor="#f5f5dc">
             <td>Job Title</td>
             <td>Company</td>
@@ -40,8 +40,17 @@ include("listingsController.php");
                 url: 'listingsController.php',
                 data: {jobTitle: jobTitle, company: company, location: location, desc: desc, qual: qual, pay: pay, cont: cont, uid: <?php echo $_SESSION['uid'] ?>},
                 success: function(result) {
-                    alert(result);
-                    window.location.href = "listings.php";
+                    if(result == "Could not add row!"){
+                        alert(result);
+                    } else {
+                        $('#listingsTable tr:last').before(result);
+                        $("#jobTitle").val("");
+                        $("#company").val("");
+                        $("#location").val("");
+                        $("#description").val("");
+                        $("#qualifications").val("");
+                        $("#contactInfo").val("");
+                    }
                 },
                 dataType: "html"
             });

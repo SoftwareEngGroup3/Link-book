@@ -14,9 +14,9 @@ function insertRow($jobTitle, $company, $location, $desc, $qual, $pay, $contactI
         $stmt->bind_param("isssssss", $bIDnum, $jobTitle, $desc, $qual, $pay, $location, $contactInfo, $company);
         $stmt->execute();
         $result = $stmt->get_result();
-        echo "Row Added!";
+        printRow($jobTitle, $desc, $qual, $company, $location, $pay, $contactInfo, $bIDnum);
     } else {
-        echo "Prepare Issue: " . $stmt->error;
+        echo "Could not add row!";
     }
 }
 
@@ -34,7 +34,7 @@ function generateListings($query, $colQueried)
             printRow($listRow[job_title], $listRow[job_description], $listRow[qualifications], $busRow[name], $listRow[location], $listRow[starting_pay], $busRow[contact_email], $listRow[bIDnum]);
         }
         ?>
-        <tr style="height: 2em;">
+        <tr id="lastRow" style="height: 2em;">
             <td><input type="text" style="width: 8em" placeholder="Job Title" id="jobTitle"></td>
             <td><input type="text" style="width: 8em" placeholder="Company" id="company"></td>
             <td><input type="text" style="width: 8em" placeholder="Location" id="location"></td>

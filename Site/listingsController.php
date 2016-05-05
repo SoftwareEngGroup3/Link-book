@@ -12,6 +12,20 @@ function generateListings($query, $colQueried)
             //print_r($busRow);
             printRow($listRow[job_title], $listRow[job_description], $listRow[qualifications], $busRow[name], $listRow[location], $listRow[starting_pay], $busRow[contact_email], $listRow[bIDnum]);
         }
+        ?>
+        <tr style="height: 2em;">
+            <td><input type="text" style="width: 8em" placeholder="Job Title"></td>
+            <td><input type="text" style="width: 8em" placeholder="Company"></td>
+            <td><input type="text" style="width: 8em" placeholder="Location"></td>
+            <td><input type="text" style="width: 8em" placeholder="Description"></td>
+            <td><input type="text" style="width: 8em" placeholder="Qualifications"></td>
+            <td><input type="text" style="width: 8em" placeholder="Starting Pay"></td>
+            <td><input type="text" style="width: 8em" placeholder="Contact Info"></td>
+            <td><div class="btn btn-success">Submit</div></td>
+
+
+        </tr>
+        <?php
         mysqli_free_result($result);
     }
 }

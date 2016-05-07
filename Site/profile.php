@@ -15,8 +15,16 @@ $user = getUserData($_GET[uid]);
 $isEditable = false;
 if($_SESSION[uid] == $_GET[uid]){
     $isEditable = true;
+    $_SESSION[fName] = $user[fName];
+    $_SESSION[lName] = $user[lName];
+    $_SESSION[email] = $user[email];
+    $_SESSION[organization] = $user[organization];
+    $_SESSION[coding_languages] = $user[coding_languages];
+    $_SESSION[bio] = $user[bio];
+    $_SESSION[uIDnum] = $user[uIDnum];
+    $_SESSION[profile_picture] = $user[profile_picture];
 }
-$picPath = $user[profile_picture];
+$picPath = $_SESSION[profile_picture];
 if($picPath == "empty"){
     $picPath = "../img/no_profile.jpg";
 }
@@ -52,6 +60,7 @@ input{
    margin-top:10px;
    margin-left:1px;
    background-color:#white;
+   opacity: 1;
    border-radius:3px;
    box-shadow:0px 0px 10px 0px #424242;
    padding:10px;
@@ -81,6 +90,27 @@ input{
    background-color:grey;
    font-size:20px;
 }
+    
+h4{
+    padding-left:10px;   
+}
+    
+.updateOrg{
+     padding-left:10px;      
+}
+.updateBio{
+     padding-left:10px;      
+}
+    
+.updateCode{
+     padding-left:10px;      
+}
+.aboutText{
+   
+    padding-bottom:5px;
+}
+   
+           
 </style>
     
     
@@ -188,148 +218,40 @@ else{
 }
     
 </script>
-
     
-<div class="container" style="margin-top: 3em">
+    
+<script type="text/javascript">
+    function updatePage(){
+        document.getElementById("page").innerHTML = "<?php echo $_SESSION[fName]; echo " "; echo $_SESSION[lName]; ?>";
+    }    
+</script>
+    
+<!--
+ <script type="text/javascript">
+     var url = "swe-group3.centralus.cloudapp.azure.com/bdbb54/profile.php";
+     
+     // IE8 and lower fix
+     if (navigator.userAgent.match(/MSIE\s(?!9.0)/))
+     {
+         var referLink = document.createElement("BUTTON");
+         referLink.href = url;
+         document.body.appendChild(referLink);
+         referLink.click();
+     }
+     
+     // All other browsers
+     else { window.location.assign(url); }
+     
+ </script>
+-->
     
     <div class="col-lg-2">
-        <div class="row">
-            <img src="<?php echo $picPath ?>" style="height: 15em; width: 13em">
-            
-            <div class="col-md-4 col-sm-4 col-xs-3"></div>
-            <div class="col-md-4 col-sm-4 col-xs-6">
-                
-            <form action="<?= $_SERVER['PHP_SELF'] ?>" method="POST" id="inputform1" class="inputform">
-                
-                <input type = "image" id = "close_input1" src = "close.png" class="close_input" type = "button">
-                
-                <div class="updateButton">
-                    <div class="ui input">
-                        <input type="text" name="firstname" required="required" placeholder="<?php echo $user[fName]; ?>" >
-                    </div>
-                </div>
-                <div class="updateButton">
-                    <div class="ui input">
-                        <input type="text" name="lastname" required="required" placeholder="<?php echo $user[lName]; ?>"/>
-                    </div>
-                </div>
-
-                <div class="updateButton">
-                    <input class=" btn btn-default" type="submit" name="updateName" required="required" value="Update"/>
-                </div>
-            </form>
-                
-                
-            <form action="<?= $_SERVER['PHP_SELF'] ?>" method="POST" id="inputform2" class="inputform">
-                
-                <input type = "image" id = "close_input2" src = "close.png" class="close_input">
-                
-                <div class="updateButton">
-                    <div class="ui input">
-                        <input type="email" name="email" required="required" placeholder="<?php echo $user[email]; ?>"/>
-                    </div>
-                </div>
-
-                <div class="updateButton">
-                    <input class=" btn btn-default" type="submit" name="updateEmail" required="required" value="Update"/>
-                </div>
-            </form>       
-                
-                
-            <form action="<?= $_SERVER['PHP_SELF'] ?>" method="POST" id="inputform3" class="inputform">
-                
-                <input type = "image" id = "close_input3" src = "close.png" class="close_input">
-                
-                <div class="updateOrg">
-                    <div class="ui input">
-                        <input type="text" name="organization"  required="required"  placeholder="<?php echo $user[organization]; ?>"/>
-                    </div>
-                </div>
-
-                <div class="updateButton">
-                    <input class=" btn btn-default" type="submit" name="updateOrg" required="required" value="Update"/>
-                </div>
-            </form>       
-                
-                
- 
-            <form action="<?= $_SERVER['PHP_SELF'] ?>" method="POST" id="inputform4" class="inputform">
-                
-                <input type = "image" id = "close_input4" src = "close.png" class="close_input">
-                
-                <div class="updateCode">
-                    <div class="ui input">
-                        <input type="text" name="coding_languages"  required="required"  placeholder="<?php echo $user[coding_languages]; ?>"/>
-                    </div>
-                </div>
-
-                <div class="updateButton">
-                    <input class=" btn btn-default" type="submit" name="updateCode" required="required" value="Update"/>
-                </div>
-            </form>       
-                
- 
-            <form action="<?= $_SERVER['PHP_SELF'] ?>" method="POST" id="inputform5" class="inputform">
-                
-                <input type = "button" type = "image" id = "close_input5" src = "close.png" class="close_input">
-                
-                <div class="updateBio">
-                    <div class="ui input">
-                        <textarea name="bio"  required="required" > <?php echo $user[bio]; ?> </textarea>
-                    </div>
-                </div>
-
-                <div class="updateButton">
-                    <input class=" btn btn-default" type="submit" name="updateBio" required="required" value="Update"/>
-                </div>
-            </form>     
-                
-                
-                
-            </div>        
-                   
-        </div>
         
-            
-            <?php printSmallModule($user[fName]." ".$user[lName]); ?>
-            <?php if($_SESSION[uid] == $user[uIDnum]) {?>
-                <input type="button" id="show_input1" value="Edit">
-            <?php } ?>
-            <?php printSmallModule($user[email]); ?>
-            <?php if($_SESSION[uid] == $user[uIDnum]) {?>
-                <input type="button" id="show_input2" value="Edit">
-            <?php } ?>
-            <?php printSmallModule($user[organization]); ?>
-            <?php if($_SESSION[uid] == $user[uIDnum]) {?>
-                <input type="button" id="show_input3" value="Edit">
-            <?php } ?>
-            <?php printSmallModule($user[coding_languages]); ?>
-            <?php if($_SESSION[uid] == $user[uIDnum]) {?>
-                <input type="button" id="show_input4" value="Edit">
-            <?php } ?>
+    <?php if($isEditable){?>
+        
 
         
-        
-    </div>
-    <div class="col-lg-8" style="padding-left: 2em">
-        <?php
-        printBigModule("About Me", $user[bio]);
-        //printBigModule("")
-        ?>
-        <?php if($_SESSION[uid] == $user[uIDnum]) {?>
-            <input type="button" id="show_input5" value="Edit">
-        <?php } ?>
-        
-    </div>
-    <div class="col-lg-2">
-        
-        <?php if($isEditable){?>
-        <div class="row"><h5>Update Your Status:</h5></div>
-        <div class="row">
-            <textarea rows="5" placeholder="Status..."
-                      style="height: 5em; resize: none; border-radius: 10px"></textarea>
-        </div>
-            <div class="row" style="margin-bottom: 2em"></div>
+
       <?php
         }       
 
@@ -343,15 +265,16 @@ else{
                 
                 if ($stmt = mysqli_prepare($link, $sql)) {
                     
-                    $fName = $_POST['firstname'];
-                    $lName = $_POST['lastname'];     
+                    $fName = $_SESSION[fName] = $_POST['firstname'];
+                    $lName = $_SESSION[lName] = $_POST['lastname']; 
+                    
                     $uIDnum = $_SESSION[uid];
                     
-                    echo $fName;
                     mysqli_stmt_bind_param($stmt, "ssi", $fName, $lName, $uIDnum) or die("bind param");
+
                     
-                    if (mysqli_stmt_execute($stmt)) {
-                        echo "<h4>Success</h4>";
+                    if (mysqli_stmt_execute($stmt)) {   
+
                     } 
                     else {
                         echo "<h4>Failed</h4>";
@@ -367,14 +290,14 @@ else{
                 
                 if ($stmt = mysqli_prepare($link, $sql)) {
                     
-                    $email = $_POST['email']; 
+                    $email = $_SESSION[email] = $_POST['email']; 
                     $uIDnum = $_SESSION[uid];
                     
                     echo $fName;
                     mysqli_stmt_bind_param($stmt, "si", $email, $uIDnum) or die("bind param");
                     
                     if (mysqli_stmt_execute($stmt)) {
-                        echo "<h4>Success</h4>";
+
                     } 
                     else {
                         echo "<h4>Failed</h4>";
@@ -390,13 +313,13 @@ else{
                 
                 if ($stmt = mysqli_prepare($link, $sql)) {
                     
-                    $coding_languages = $_POST['coding_languages']; 
+                    $coding_languages = $_SESSION[coding_languages] = $_POST['coding_languages']; 
                     $uIDnum = $_SESSION[uid];
                     
                     mysqli_stmt_bind_param($stmt, "si", $coding_languages, $uIDnum) or die("bind param");
                     
                     if (mysqli_stmt_execute($stmt)) {
-                        echo "<h4>Success</h4>";
+
                     } 
                     else {
                         echo "<h4>Failed</h4>";
@@ -412,13 +335,13 @@ else{
                 
                 if ($stmt = mysqli_prepare($link, $sql)) {
                     
-                    $organization = $_POST['organization']; 
+                    $organization = $_SESSION[organization] = $_POST['organization']; 
                     $uIDnum = $_SESSION[uid];
                     
                     mysqli_stmt_bind_param($stmt, "si", $organization, $uIDnum) or die("bind param");
                     
                     if (mysqli_stmt_execute($stmt)) {
-                        echo "<h4>Success</h4>";
+
                     } 
                     else {
                         echo "<h4>Failed</h4>";
@@ -434,13 +357,13 @@ else{
                 
                 if ($stmt = mysqli_prepare($link, $sql)) {
                     
-                    $bio = $_POST['bio']; 
+                    $bio = $_SESSION[bio] = $_POST['bio']; 
                     $uIDnum = $_SESSION[uid];
                     
                     mysqli_stmt_bind_param($stmt, "si", $bio, $uIDnum) or die("bind param");
                     
                     if (mysqli_stmt_execute($stmt)) {
-                        echo "<h4>Success</h4>";
+
                     } 
                     else {
                         echo "<h4>Failed</h4>";
@@ -454,9 +377,174 @@ else{
         ?>
         
 
-    <?php 
-        printStatusBlock($user[uIDnum], 3, 5);?>
-
     </div>
+    
+<div class="container" style="margin-top: 3em">
+    
+    <div class="col-lg-2">
+        <div class="row">
+            <img src="<?php echo $picPath ?>" style="height: 15em; width: 13em">
+            
+            <div class="col-md-4 col-sm-4 col-xs-3"></div>
+            <div class="col-md-4 col-sm-4 col-xs-6">
+                
+                
+            <form action="<?= $_SERVER['PHP_SELF'] ?>"  method="POST" id="inputform1" class="inputform">
+                
+                <input type = "image" id = "close_input1" src = "close.png" class="close_input" type = "button">
+                
+                <h4> Enter your name: </h4>
+                
+                <div class="updateButton">
+                    <div class="ui input">
+                        <input type="text" name="firstname" placeholder="<?php echo $_SESSION[fName]; ?>" >
+                    </div>
+                </div>
+                <div class="updateButton">
+                    <div class="ui input">
+                        <input type="text" name="lastname" placeholder="<?php echo $_SESSION[lName]; ?>"/>
+                    </div>
+                </div>
+
+                <div class="updateButton">
+                    <input class=" btn btn-default" type="submit" name="updateName" value="Update" />
+                </div>
+            </form>
+            
+                
+            <form action="<?= $_SERVER['PHP_SELF'] ?>" method="POST" id="inputform2" class="inputform">
+                
+                <input type = "image" id = "close_input2" src = "close.png" class="close_input">
+                
+                <h4> Enter your email: </h4>
+                
+                <div class="updateButton">
+                    <div class="ui input">
+                        <input type="email" name="email" placeholder="<?php echo $_SESSION[email]; ?>"/>
+                    </div>
+                </div>
+
+                <div class="updateButton">
+                    <input class=" btn btn-default" type="submit" name="updateEmail" required="required"  value="Update"/>
+                </div>
+            </form>       
+                
+                
+            <form action="<?= $_SERVER['PHP_SELF'] ?>" method="POST" id="inputform3" class="inputform">
+                
+                <input type = "image" id = "close_input3" src = "close.png" class="close_input">
+                
+                <h4> Enter your organizations: </h4>
+                
+                <div class="updateOrg">
+                    <div class="ui input">
+                        <input type="text" name="organization"  placeholder="<?php echo $_SESSION[organization]; ?>"/>
+                    </div>
+                </div>
+
+                <div class="updateButton">
+                    <input class=" btn btn-default" type="submit" name="updateOrg"  value="Update"/>
+                </div>
+            </form>       
+                
+                
+ 
+            <form action="<?= $_SERVER['PHP_SELF'] ?>" method="POST" id="inputform4" class="inputform">
+                
+                <input type = "image" id = "close_input4" src = "close.png" class="close_input">
+                
+                <h4> Enter your coding languages: </h4>
+                
+                <div class="updateCode">
+                    <div class="ui input">
+                        <input type="text" name="coding_languages" placeholder="<?php echo $_SESSION[coding_languages]; ?>"/>
+                    </div>
+                </div>
+
+                <div class="updateButton">
+                    <input class=" btn btn-default" type="submit" name="updateCode" value="Update"/>
+                </div>
+            </form>       
+                
+ 
+            <form action="<?= $_SERVER['PHP_SELF'] ?>" method="POST" id="inputform5" class="inputform">
+                
+                <input type = "image" id = "close_input5" src = "close.png" class="close_input">
+                
+                
+                <div class="updateBio">
+                    <div class="ui input">
+                        <textarea rows="5" cols="40" name="bio"  required="required" > <?php echo $_SESSION[bio]; ?> </textarea>
+                    </div>
+                </div>
+
+                <div class="updateButton">
+                    <input class=" btn btn-default" type="submit" name="updateBio" value="Update"/>
+                </div>
+            </form>     
+                
+                
+                
+            </div>        
+                   
+        </div>
+
+            
+            <?php 
+            printSmallModule($_SESSION[fName]." ".$_SESSION[lName]); ?>
+            <?php if($_SESSION[uid] == $_SESSION[uIDnum]) {?>
+                <input type="button" id="show_input1" value="Edit">
+            <?php } ?>
+            <?php printSmallModule($_SESSION[email]); ?>
+            <?php if($_SESSION[uid] == $_SESSION[uIDnum]) {?>
+                <input type="button" id="show_input2" value="Edit">
+            <?php } ?>
+            <?php printSmallModule($_SESSION[organization]); ?>
+            <?php if($_SESSION[uid] == $_SESSION[uIDnum]) {?>
+                <input type="button" id="show_input3" value="Edit">
+            <?php } ?>
+            <?php printSmallModule($_SESSION[coding_languages]); ?>
+            <?php if($_SESSION[uid] == $_SESSION[uIDnum]) {?>
+                <input type="button" id="show_input4" value="Edit">
+            <?php } 
+            
+            ?>
+
+        
+        
+    </div>
+    <div class="col-lg-8" style="padding-left: 2em">
+        
+        
+        <h3>About Me:</h3>
+        <div class = "aboutText">
+        <?php
+        echo $_SESSION[bio];
+        echo " ";
+        //printBigModule("")
+        ?>
+        </div>
+        
+        <?php if($_SESSION[uid] == $_SESSION[uIDnum]) {?>
+            <input type="button" id="show_input5" value="Edit">
+        <?php } ?>
+        
+    </div>
+    
+        <div class="row"><h5>Update Your Status:</h5>
+            <div class="row">
+             <textarea rows="5" placeholder="Status..."
+                      style="height: 5em; resize: none; border-radius: 10px"></textarea>   
+            </div>
+        <div class="row" style="margin-bottom: 2em"></div>
+            
+         <div class="col-lg-2" class="row">
+        <?php 
+            printStatusBlock($_SESSION[uIDnum], 3, 5);?>    
+        </div>
+            
+            
+        </div>
+
 </div>
 </body>

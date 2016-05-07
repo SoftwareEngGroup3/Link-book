@@ -12,9 +12,14 @@ include("checksession.php");
 include("navbar.php");
 include("profileController.php");
 $user = getUserData($_GET[uid]);
-$isEditable = false;
+
+if($_SESSION[uid] != $_GET[uid]){
+    $_SESSION[isEditable] = false;
+}
+    
+
 if($_SESSION[uid] == $_GET[uid]){
-    $isEditable = true;
+    $_SESSION[isEditable] = true;
     $_SESSION[fName] = $user[fName];
     $_SESSION[lName] = $user[lName];
     $_SESSION[email] = $user[email];
@@ -23,8 +28,12 @@ if($_SESSION[uid] == $_GET[uid]){
     $_SESSION[bio] = $user[bio];
     $_SESSION[uIDnum] = $user[uIDnum];
     $_SESSION[profile_picture] = $user[profile_picture];
+
 }
-$picPath = $_SESSION[profile_picture];
+
+    $picPath = $_SESSION[profile_picture];
+
+
 if($picPath == "empty"){
     $picPath = "../img/no_profile.jpg";
 }
@@ -222,39 +231,21 @@ else{
     
 <script type="text/javascript">
     function updatePage(){
-        document.getElementById("page").innerHTML = "<?php echo $_SESSION[fName]; echo " "; echo $_SESSION[lName]; ?>";
+        document.getElementById("page").innerHTML = "<?php echo $user[fName]; echo " "; echo $user[lName]; ?>";
     }    
 </script>
     
-<!--
- <script type="text/javascript">
-     var url = "swe-group3.centralus.cloudapp.azure.com/bdbb54/profile.php";
-     
-     // IE8 and lower fix
-     if (navigator.userAgent.match(/MSIE\s(?!9.0)/))
-     {
-         var referLink = document.createElement("BUTTON");
-         referLink.href = url;
-         document.body.appendChild(referLink);
-         referLink.click();
-     }
-     
-     // All other browsers
-     else { window.location.assign(url); }
-     
- </script>
--->
+
     
     <div class="col-lg-2">
         
-    <?php if($isEditable){?>
+    <?php if($_SESSION[isEditable]){?>
         
 
         
 
       <?php
         }       
-
 
             if (isset($_POST['updateName'])) {
                 include("../secure/secure.php");
@@ -269,6 +260,7 @@ else{
                     $lName = $_SESSION[lName] = $_POST['lastname']; 
                     
                     $uIDnum = $_SESSION[uid];
+                    $_SESSION[isEditable] = true;
                     
                     mysqli_stmt_bind_param($stmt, "ssi", $fName, $lName, $uIDnum) or die("bind param");
 
@@ -292,6 +284,7 @@ else{
                     
                     $email = $_SESSION[email] = $_POST['email']; 
                     $uIDnum = $_SESSION[uid];
+                    $_SESSION[isEditable] = true;
                     
                     echo $fName;
                     mysqli_stmt_bind_param($stmt, "si", $email, $uIDnum) or die("bind param");
@@ -315,6 +308,7 @@ else{
                     
                     $coding_languages = $_SESSION[coding_languages] = $_POST['coding_languages']; 
                     $uIDnum = $_SESSION[uid];
+                    $_SESSION[isEditable] = true;
                     
                     mysqli_stmt_bind_param($stmt, "si", $coding_languages, $uIDnum) or die("bind param");
                     
@@ -337,6 +331,7 @@ else{
                     
                     $organization = $_SESSION[organization] = $_POST['organization']; 
                     $uIDnum = $_SESSION[uid];
+                    $_SESSION[isEditable] = true;
                     
                     mysqli_stmt_bind_param($stmt, "si", $organization, $uIDnum) or die("bind param");
                     
@@ -359,6 +354,7 @@ else{
                     
                     $bio = $_SESSION[bio] = $_POST['bio']; 
                     $uIDnum = $_SESSION[uid];
+                    $_SESSION[isEditable] = true;
                     
                     mysqli_stmt_bind_param($stmt, "si", $bio, $uIDnum) or die("bind param");
                     
@@ -489,8 +485,10 @@ else{
                    
         </div>
 
-            
             <?php 
+
+
+            if($_SESSION[isEditable]){
             printSmallModule($_SESSION[fName]." ".$_SESSION[lName]); ?>
             <?php if($_SESSION[uid] == $_SESSION[uIDnum]) {?>
                 <input type="button" id="show_input1" value="Edit">
@@ -507,7 +505,30 @@ else{
             <?php if($_SESSION[uid] == $_SESSION[uIDnum]) {?>
                 <input type="button" id="show_input4" value="Edit">
             <?php } 
+            }
             
+            ?>
+        
+            <?php       
+            if($_SESSION[isEditable]==false){
+            printSmallModule($user[fName]." ".$user[lName]); ?>
+            <?php if($_SESSION[uid] == $_SESSION[uIDnum]) {?>
+
+            <?php } ?>
+            <?php printSmallModule($user[email]); ?>
+            <?php if($user[uid] == $user[uIDnum]) {?>
+
+            <?php } ?>
+            <?php printSmallModule($user[organization]); ?>
+            <?php if($_SESSION[uid] == $_SESSION[uIDnum]) {?>
+
+            <?php } ?>
+            <?php printSmallModule($user[coding_languages]); ?>
+            <?php if($_SESSION[uid] == $_SESSION[uIDnum]) {?>
+
+            <?php } 
+
+            }
             ?>
 
         
@@ -519,15 +540,24 @@ else{
         <h3>About Me:</h3>
         <div class = "aboutText">
         <?php
-        echo $_SESSION[bio];
+        if($_SESSION[isEditable]){
+            echo $_SESSION[bio];
+        }
+        if($_SESSION[isEditable]==false){
+            echo $user[bio];            
+        }
         echo " ";
+            
         //printBigModule("")
         ?>
         </div>
         
-        <?php if($_SESSION[uid] == $_SESSION[uIDnum]) {?>
-            <input type="button" id="show_input5" value="Edit">
-        <?php } ?>
+        <?php if($_SESSION[uid] == $_SESSION[uIDnum]) {
+            if($_SESSION[isEditable]){ ?>
+                <input type="button" id="show_input5" value="Edit">
+        <?php
+            }   
+        } ?>
         
     </div>
     

@@ -387,7 +387,7 @@ else{
                 
             <form action="<?= $_SERVER['PHP_SELF'] ?>"  method="POST" id="inputform1" class="inputform">
                 
-                <input type = "image" id = "close_input1" src = "close.png" class="close_input" type = "button">
+                <input type="button" type = "image" id = "close_input1" class="close_input" type = "button">
                 
                 <h4> Enter your name: </h4>
                 
@@ -403,14 +403,14 @@ else{
                 </div>
 
                 <div class="updateButton">
-                    <input class=" btn btn-default" type="submit" name="updateName" value="Update" />
+                    <input type="submit" name="updateName" value="Update" />
                 </div>
             </form>
             
                 
             <form action="<?= $_SERVER['PHP_SELF'] ?>" method="POST" id="inputform2" class="inputform">
                 
-                <input type = "image" id = "close_input2" src = "close.png" class="close_input">
+                <input type="button" type = "image" id = "close_input2" src = "close.png" class="close_input">
                 
                 <h4> Enter your email: </h4>
                 
@@ -421,14 +421,14 @@ else{
                 </div>
 
                 <div class="updateButton">
-                    <input class=" btn btn-default" type="submit" name="updateEmail" required="required"  value="Update"/>
+                    <input type="submit" name="updateEmail" required="required"  value="Update"/>
                 </div>
             </form>       
                 
                 
             <form action="<?= $_SERVER['PHP_SELF'] ?>" method="POST" id="inputform3" class="inputform">
                 
-                <input type = "image" id = "close_input3" src = "close.png" class="close_input">
+                <input type="button" type = "image" id = "close_input3" src = "close.png" class="close_input">
                 
                 <h4> Enter your organizations: </h4>
                 
@@ -439,7 +439,7 @@ else{
                 </div>
 
                 <div class="updateButton">
-                    <input class=" btn btn-default" type="submit" name="updateOrg"  value="Update"/>
+                    <input type="submit" name="updateOrg"  value="Update"/>
                 </div>
             </form>       
                 
@@ -447,7 +447,7 @@ else{
  
             <form action="<?= $_SERVER['PHP_SELF'] ?>" method="POST" id="inputform4" class="inputform">
                 
-                <input type = "image" id = "close_input4" src = "close.png" class="close_input">
+                <input type="button" type = "image" id = "close_input4" src = "close.png" class="close_input">
                 
                 <h4> Enter your coding languages: </h4>
                 
@@ -458,14 +458,14 @@ else{
                 </div>
 
                 <div class="updateButton">
-                    <input class=" btn btn-default" type="submit" name="updateCode" value="Update"/>
+                    <input type="submit" name="updateCode" value="Update"/>
                 </div>
             </form>       
                 
  
             <form action="<?= $_SERVER['PHP_SELF'] ?>" method="POST" id="inputform5" class="inputform">
                 
-                <input type = "image" id = "close_input5" src = "close.png" class="close_input">
+                <input type="button" type = "image" id = "close_input5" src = "close.png" class="close_input">
                 
                 
                 <div class="updateBio">
@@ -475,7 +475,7 @@ else{
                 </div>
 
                 <div class="updateButton">
-                    <input class=" btn btn-default" type="submit" name="updateBio" value="Update"/>
+                    <input type="submit" name="updateBio" value="Update"/>
                 </div>
             </form>     
                 

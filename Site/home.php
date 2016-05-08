@@ -29,8 +29,12 @@ populateStatuses($_SESSION[uid]);
                     url: 'homeController.php',
                     data: {picPath: $picPath, uid: <?php echo $_SESSION[uid]; ?>, fName: "<?php echo $_SESSION[fName]; ?>", lName: "<?php echo $_SESSION[lName]; ?>", addStatus: true, text: text},
                     success: function(result){
-                        $("#addingStatusRow").after(result);
-                        $("#statusTextArea").val("");
+                        if(result == "Could not add status!"){
+                            alert(result);
+                        } else {
+                            $("#addingStatusRow").after(result);
+                            $("#statusTextArea").val("");
+                        }
                     },
                     dataType: "html"
                 });

@@ -1,8 +1,6 @@
 <?php
 if(isset($_POST[addStatus], $_POST[picPath], $_POST[uid],$_POST[fName],$_POST[lName],$_POST[text])){
-    echo "<div class='row' style='padding-bottom: 2em; padding-left: 8em'>";
-    printStatus($_POST[picPath], $_POST[uid], $_POST[fName], $_POST[lName], $_POST[text]);
-    echo "<div class='row' style='padding-bottom: 2em; padding-left: 8em'>";
+    addStatusToDB($_POST[uid], $_POST[text], $_POST[picPath], $_POST[fName], $_POST[lName]);
 }
 
 function populateStatuses($uid)
@@ -34,6 +32,22 @@ function populateStatuses($uid)
     }
 
     mysqli_free_result($result);
+}
+
+function addStatusToDB($uid, $text, $picPath, $fName, $lName){
+    include("../secure/secure.php");
+    $link = mysqli_connect($site, $user, $pass, $db) or die("Connect Error " . mysqli_error($link));
+    $sql = "INSERT INTO status(uIDnum, content) VALUES(?,?)";
+    $stmt = $link->stmt_init();
+    if($stmt->prepare($sql)){
+        $stmt->bind_param("is", $uid, $text);
+        $stmt->execute();
+        echo "<div class='row' style='padding-bottom: 2em; padding-left: 8em'>";
+        printStatus($picPath, $uid, $fName, $lName, $text);
+        echo "<div class='row' style='padding-bottom: 2em; padding-left: 8em'>";
+    } else {
+        echo "Could not add status!";
+    }
 }
 
 function printStatus($picPath, $uid, $fName, $lName, $text)
@@ -81,7 +95,7 @@ function printAddStatusRow($picPath, $uid, $fName, $lName)
 function usersAreConnected($user1, $user2)
 {
     if($user1 == $user2){
-        return false;
+        return true;
     }
     include("../secure/secure.php");
     $link = mysqli_connect($site, $user, $pass, $db) or die("Connect Error " . mysqli_error($link));

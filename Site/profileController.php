@@ -92,19 +92,14 @@ Redirect to buisness profile page if buisness
 */
 function checkIfBusiness($uid)
 {
-<<<<<<< HEAD
+
     $isBiz = getUserData($uid);
     
     if ($isBiz[isBusiness] == 1)
     {
        header("Locattion: business.php");
     }
-=======
-   if (getUserData($uid) == false)
-   {
-       header("Location: business.php");
-   }
->>>>>>> refs/remotes/origin/master
+
     else
     {
         return false;

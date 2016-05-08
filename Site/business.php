@@ -300,19 +300,19 @@ else{
                 } 
             }
 
-            else if (isset($_POST['updateCode'])) {
+            else if (isset($_POST['updateContName'])) {
                 include("../secure/secure.php");
                 $link = mysqli_connect($site, $user, $pass, $db) or die("Connect Error " . mysqli_error($link));
                 
-                $sql = "UPDATE users SET coding_languages = ? WHERE uIDnum = ?";
+                $sql = "UPDATE business SET contact_name = ? WHERE uIDnum = ?";
                 
                 if ($stmt = mysqli_prepare($link, $sql)) {
                     
-                    $coding_languages = $_SESSION[coding_languages] = $_POST['coding_languages']; 
+                    $coding_languages = $_SESSION[contact_name] = $_POST['contact_name']; 
                     $uIDnum = $_SESSION[uid];
                     $_SESSION[isEditable] = true;
                     
-                    mysqli_stmt_bind_param($stmt, "si", $coding_languages, $uIDnum) or die("bind param");
+                    mysqli_stmt_bind_param($stmt, "si", $contact_name, $uIDnum) or die("bind param");
                     
                     if (mysqli_stmt_execute($stmt)) {
 
@@ -323,19 +323,19 @@ else{
                 } 
             }
 
-            else if (isset($_POST['updateOrg'])) {
+            else if (isset($_POST['updateSize'])) {
                 include("../secure/secure.php");
                 $link = mysqli_connect($site, $user, $pass, $db) or die("Connect Error " . mysqli_error($link));
                 
-                $sql = "UPDATE users SET organization = ? WHERE uIDnum = ?";
+                $sql = "UPDATE business SET biz_size = ? WHERE uIDnum = ?";
                 
                 if ($stmt = mysqli_prepare($link, $sql)) {
                     
-                    $organization = $_SESSION[organization] = $_POST['organization']; 
+                    $organization = $_SESSION[biz_size] = $_POST['biz_size']; 
                     $uIDnum = $_SESSION[uid];
                     $_SESSION[isEditable] = true;
                     
-                    mysqli_stmt_bind_param($stmt, "si", $organization, $uIDnum) or die("bind param");
+                    mysqli_stmt_bind_param($stmt, "si", $biz_size, $uIDnum) or die("bind param");
                     
                     if (mysqli_stmt_execute($stmt)) {
 
@@ -346,11 +346,11 @@ else{
                 } 
             }
 
-            else if (isset($_POST['updateBio'])) {
+            else if (isset($_POST['updateProduct'])) {
                 include("../secure/secure.php");
                 $link = mysqli_connect($site, $user, $pass, $db) or die("Connect Error " . mysqli_error($link));
                 
-                $sql = "UPDATE users SET bio = ? WHERE uIDnum = ?";
+                $sql = "UPDATE business SET product = ? WHERE uIDnum = ?";
                 
                 if ($stmt = mysqli_prepare($link, $sql)) {
                     
@@ -358,7 +358,7 @@ else{
                     $uIDnum = $_SESSION[uid];
                     $_SESSION[isEditable] = true;
                     
-                    mysqli_stmt_bind_param($stmt, "si", $bio, $uIDnum) or die("bind param");
+                    mysqli_stmt_bind_param($stmt, "si", $product, $uIDnum) or die("bind param");
                     
                     if (mysqli_stmt_execute($stmt)) {
 
@@ -368,7 +368,29 @@ else{
                     }
                 } 
             }
+            
+            else if (isset($_POST['updateOpenings'])) {
+                include("../secure/secure.php");
+                $link = mysqli_connect($site, $user, $pass, $db) or die("Connect Error " . mysqli_error($link));
+                
+                $sql = "UPDATE business SET openings = ? WHERE uIDnum = ?";
+                
+                if ($stmt = mysqli_prepare($link, $sql)) {
+                    
+                    $bio = $_SESSION[bio] = $_POST['bio']; 
+                    $uIDnum = $_SESSION[uid];
+                    $_SESSION[isEditable] = true;
+                    
+                    mysqli_stmt_bind_param($stmt, "si", $openings, $uIDnum) or die("bind param");
+                    
+                    if (mysqli_stmt_execute($stmt)) {
 
+                    } 
+                    else {
+                        echo "<h4>Failed</h4>";
+                    }
+                } 
+            }
 
             
         
@@ -391,16 +413,11 @@ else{
                 
                 <input type="button" type = "image" id = "close_input1" class="close_input" type = "button">
                 
-                <h4> Enter your name: </h4>
+                <h4> Enter your company name: </h4>
                 
                 <div class="updateButton">
                     <div class="ui input">
-                        <input type="text" name="firstname" placeholder="<?php echo $_SESSION[fName]; ?>" >
-                    </div>
-                </div>
-                <div class="updateButton">
-                    <div class="ui input">
-                        <input type="text" name="lastname" placeholder="<?php echo $_SESSION[lName]; ?>"/>
+                        <input type="text" name="name" placeholder="<?php echo $_SESSION[name]; ?>"/>
                     </div>
                 </div>
 
@@ -414,16 +431,16 @@ else{
                 
                 <input type="button" type = "image" id = "close_input2" src = "close.png" class="close_input">
                 
-                <h4> Enter your email: </h4>
+                <h4> Enter Contact email: </h4>
                 
                 <div class="updateButton">
                     <div class="ui input">
-                        <input type="email" name="email" placeholder="<?php echo $_SESSION[email]; ?>"/>
+                        <input type="email" name="email" placeholder="<?php echo $_SESSION[contact_email]; ?>"/>
                     </div>
                 </div>
 
                 <div class="updateButton">
-                    <input type="submit" name="updateEmail" required="required"  value="Update"/>
+                    <input type="submit" name="updateContEmail" required="required"  value="Update"/>
                 </div>
             </form>       
                 
@@ -432,16 +449,16 @@ else{
                 
                 <input type="button" type = "image" id = "close_input3" src = "close.png" class="close_input">
                 
-                <h4> Enter your organizations: </h4>
+                <h4> Enter your company contact's name: </h4>
                 
                 <div class="updateOrg">
                     <div class="ui input">
-                        <input type="text" name="organization"  placeholder="<?php echo $_SESSION[organization]; ?>"/>
+                        <input type="text" name="organization"  placeholder="<?php echo $_SESSION[contact_name]; ?>"/>
                     </div>
                 </div>
 
                 <div class="updateButton">
-                    <input type="submit" name="updateOrg"  value="Update"/>
+                    <input type="submit" name="contact_name"  value="Update"/>
                 </div>
             </form>       
                 
@@ -451,16 +468,16 @@ else{
                 
                 <input type="button" type = "image" id = "close_input4" src = "close.png" class="close_input">
                 
-                <h4> Enter your coding languages: </h4>
+                <h4> Enter your company size: </h4>
                 
                 <div class="updateCode">
                     <div class="ui input">
-                        <input type="text" name="coding_languages" placeholder="<?php echo $_SESSION[coding_languages]; ?>"/>
+                        <input type="text" name="coding_languages" placeholder="<?php echo $_SESSION[biz_size]; ?>"/>
                     </div>
                 </div>
 
                 <div class="updateButton">
-                    <input type="submit" name="updateCode" value="Update"/>
+                    <input type="submit" name="updateSize" value="Update"/>
                 </div>
             </form>       
                 
@@ -472,12 +489,29 @@ else{
                 
                 <div class="updateBio">
                     <div class="ui input">
-                        <textarea rows="5" cols="40" name="bio"  required="required" > <?php echo $_SESSION[bio]; ?> </textarea>
+                        <textarea rows="5" cols="40" name="bio"  required="required" > <?php echo $_SESSION[product]; ?> </textarea>
                     </div>
                 </div>
 
                 <div class="updateButton">
-                    <input type="submit" name="updateBio" value="Update"/>
+                    <input type="submit" name="updateProduct" value="Update"/>
+                </div>
+            </form>    
+                
+             <form action="<?= $_SERVER['PHP_SELF'] ?>" method="POST" id="inputform4" class="inputform">
+                
+                <input type="button" type = "image" id = "close_input4" src = "close.png" class="close_input">
+                
+                <h4> Enter number of openings: </h4>
+                
+                <div class="updateCode">
+                    <div class="ui input">
+                        <input type="text" name="coding_languages" placeholder="<?php echo $_SESSION[openings]; ?>"/>
+                    </div>
+                </div>
+
+                <div class="updateButton">
+                    <input type="submit" name="updateCode" value="Update"/>
                 </div>
             </form>     
                 
@@ -491,19 +525,27 @@ else{
 
 
             if($_SESSION[isEditable]){
-            printSmallModule($_SESSION[fName]." ".$_SESSION[lName]); ?>
+            printSmallModule($_SESSION[name]); ?>
             <?php if($_SESSION[uid] == $_SESSION[uIDnum]) {?>
                 <input type="button" id="show_input1" value="Edit">
             <?php } ?>
-            <?php printSmallModule($_SESSION[email]); ?>
+            <?php printSmallModule($_SESSION[contact_email]); ?>
             <?php if($_SESSION[uid] == $_SESSION[uIDnum]) {?>
                 <input type="button" id="show_input2" value="Edit">
             <?php } ?>
-            <?php printSmallModule($_SESSION[organization]); ?>
+            <?php printSmallModule($_SESSION[contact_name]); ?>
             <?php if($_SESSION[uid] == $_SESSION[uIDnum]) {?>
                 <input type="button" id="show_input3" value="Edit">
             <?php } ?>
-            <?php printSmallModule($_SESSION[coding_languages]); ?>
+              <?php printSmallModule($_SESSION[biz_size]); ?>
+            <?php if($_SESSION[uid] == $_SESSION[uIDnum]) {?>
+                <input type="button" id="show_input3" value="Edit">
+            <?php } ?>
+              <?php printSmallModule($_SESSION[product]); ?>
+            <?php if($_SESSION[uid] == $_SESSION[uIDnum]) {?>
+                <input type="button" id="show_input3" value="Edit">
+            <?php } ?>
+            <?php printSmallModule($_SESSION[openings]); ?>
             <?php if($_SESSION[uid] == $_SESSION[uIDnum]) {?>
                 <input type="button" id="show_input4" value="Edit">
             <?php } 
@@ -513,19 +555,27 @@ else{
         
             <?php       
             if($_SESSION[isEditable]==false){
-            printSmallModule($user[fName]." ".$user[lName]); ?>
+            printSmallModule($buis[name]); ?>
             <?php if($_SESSION[uid] == $_SESSION[uIDnum]) {?>
 
             <?php } ?>
-            <?php printSmallModule($user[email]); ?>
-            <?php if($user[uid] == $user[uIDnum]) {?>
+            <?php printSmallModule($buis[contact_email]); ?>
+            <?php if($buis[uid] == $buis[uIDnum]) {?>
 
             <?php } ?>
-            <?php printSmallModule($user[organization]); ?>
+            <?php printSmallModule($buis[contact_name]); ?>
             <?php if($_SESSION[uid] == $_SESSION[uIDnum]) {?>
+        
+            <?php } ?>
+            <?php printSmallModule($buis[biz_size]); ?>
+            <?php if($buis[uid] == $buis[uIDnum]) {?>
+        
+            <?php } ?>
+            <?php printSmallModule($buis[product]); ?>
+            <?php if($buis[uid] == $buis[uIDnum]) {?>
 
             <?php } ?>
-            <?php printSmallModule($user[coding_languages]); ?>
+            <?php printSmallModule($buis[openings]); ?>
             <?php if($_SESSION[uid] == $_SESSION[uIDnum]) {?>
 
             <?php } 
@@ -536,12 +586,13 @@ else{
         
         
     </div>
-    <div class="col-lg-8" style="padding-left: 2em">
+<!--
+    div class="col-lg-8" style="padding-left: 2em">
         
         
-        <h3>About Me:</h3>
+        <h3>About Us:</h3>
         <div class = "aboutText">
-        <?php
+        <?php /*
         if($_SESSION[isEditable]){
             echo $_SESSION[bio];
         }
@@ -559,24 +610,11 @@ else{
                 <input type="button" id="show_input5" value="Edit">
         <?php
             }   
-        } ?>
+        } */ ?>
         
     </div>
-    
-        <div class="row"><h5>Update Your Status:</h5>
-            <div class="row">
-             <textarea rows="5" placeholder="Status..."
-                      style="height: 5em; resize: none; border-radius: 10px"></textarea>   
-            </div>
-        <div class="row" style="margin-bottom: 2em"></div>
-            
-         <div class="col-lg-2" class="row">
-        <?php 
-            printStatusBlock($_SESSION[uIDnum], 3, 5);?>    
-        </div>
-            
-            
-        </div>
+-->
+     
 
 </div>   
 

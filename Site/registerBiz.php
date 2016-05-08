@@ -103,11 +103,18 @@ FOREIGN KEY (uIDnum) REFERENCES linkbook.users(uIDnum)
 
                     $link = mysqli_connect($site, $user, $pass, $db) or die("Connect Error " . mysqli_error($link));
         
-                    $sql = "INSERT INTO business(uIDnum, name, contact_email, contact_name, biz_size, product, openings, photo) VALUES(?,?,?,?,?,?,?,?)"; 
+                    $sql = "INSERT INTO business(uIDnum, name, contact_email, contact_name, biz_size, product, openings, photo) VALUES(?,?,?,?,?,?,?,?)";
+                    
+                    $sql2 = "UPDATE users
+                            SET isBusiness=1 
+                            WHERE uIDnum=’current uIDnum’;"
+                        ;
+                                    
         
-					//$sql = "INSERT INTO user(username, salt, hashed_password) VALUES(?,?,?)";
-        
-                if ($stmt = mysqli_prepare($link, $sql)) {
+					
+        //Prepare and execure  insert statement
+                if ($stmt = mysqli_prepare($link, $sql)) 
+                {
 
 
                     $uIDnum = $uid;
@@ -121,22 +128,58 @@ FOREIGN KEY (uIDnum) REFERENCES linkbook.users(uIDnum)
                     $pic = "empty";
     
 
-                    mysqli_stmt_bind_param($stmt, "issssssssss", $uIDnum, $Name, $contact_name, $contact_email, $biz_size, $product, $openings, $pic) or die("bind param");
+                    mysqli_stmt_bind_param($stmt, "isssisis", $uIDnum, $Name, $contact_name, $contact_email, $biz_size, $product, $openings, $pic) or die("bind param");
+                    
+                    
+                    
 
                     //mysqli_stmt_bind_param($stmt, "sss", $user, $salt, $hpass) or die("bind param");
 
-                    if (mysqli_stmt_execute($stmt)) {
+                    if (mysqli_stmt_execute($stmt)) 
+                    {
                         echo "<h4>Success</h4>";
-                    } else {
+                    } 
+                    else 
+                    {
                         echo "<h4>Failed</h4>";
                     }
                     //$result = mysqli_stmt_get_result($stmt);
                 } 
 
-                else {
+                else 
+                {
                     die("prepare failed");
                 }
-				}
+                }
+        
+        //Prepare and execure update statement
+                if ($stmt2 = mysqli_prepare($link, $sql2)) 
+                {
+
+
+                    $isBusiness = 4;
+    
+
+                    mysqli_stmt_bind_param($stmt, "i", isBusiness) or die("bind param");
+     
+
+                    if (mysqli_stmt_execute($stmt)) 
+                    {
+                        echo "<h4>Success</h4>";
+                    } 
+                    else 
+                    {
+                        echo "<h4>Failed</h4>";
+                    }
+                    
+                } 
+
+                else 
+                {
+                    die("prepare failed");
+                }
+                }          
+            
                     
 			?>
                 <div class="field">

@@ -157,7 +157,7 @@ FOREIGN KEY (uIDnum) REFERENCES linkbook.users(uIDnum)
                 {
 
 
-                    $isBusiness = 4;
+                    $isBusiness = 1;
     
 
                     mysqli_stmt_bind_param($stmt, "i", isBusiness) or die("bind param");

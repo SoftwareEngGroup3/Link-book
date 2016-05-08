@@ -68,6 +68,9 @@ if (isset($_POST['submit'])) { // Was the form submitted?
             $_SESSION["loggedin"] = "true";
             $_SESSION["username"] = $key;
             $_SESSION["uid"] = $uIDnum;
+            $_SESSION["picPath"] = $pic;
+            $_SESSION["fName"] = $fName;
+            $_SESSION["lName"] = $lName;
             if($_SESSION["username"] == "Admin") {
                     header("Location: admin.php");
             } else {       

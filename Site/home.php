@@ -20,13 +20,17 @@ populateStatuses($_SESSION[uid]);
             if(e.keyCode == 13 || e.keyCode == 10){
                 e.preventDefault();
                 var text = $("#statusTextArea").val();
+                $picPath = "<?php echo $_SESSION[picPath];?>";  //Handling potential nil value
+                if($picPath == "empty"){
+                    $picPath = "../img/no_profile.jpg";
+                }
                 $.ajax({
                     type: 'POST',
                     url: 'homeController.php',
-                    data: {picPath: $_SESSION[picPath], uid: $_SESSION[uid], fName: $_SESSION[fName], lName: $_SESSION[lName], addStatus: true, text: text},
+                    data: {picPath: $picPath, uid: <?php echo $_SESSION[uid]; ?>, fName: "<?php echo $_SESSION[fName]; ?>", lName: "<?php echo $_SESSION[lName]; ?>", addStatus: true, text: text},
                     success: function(result){
-                        alert(result);
                         $("#addingStatusRow").after(result);
+                        $("#statusTextArea").val("");
                     },
                     dataType: "html"
                 });

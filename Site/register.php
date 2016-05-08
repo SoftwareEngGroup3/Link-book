@@ -60,6 +60,9 @@ if ($_SESSION["loggedin"] == "true") {
 						</div>
 
 					</form>
+                    
+                    <p>First create a regular account to create your buisness account.</p>
+                    
 				</div>
 			</div>
 			<?php
@@ -94,13 +97,14 @@ if ($_SESSION["loggedin"] == "true") {
                 if ($stmt = mysqli_prepare($link, $sql)) {
 
 
-                    $uIDnum = mt_rand();
+                    //$uIDnum = mt_rand(); 
+                    //We dont need this- The field is an auto-increment on the DB
 
                     $fName = $_POST['firstname'];
                     $lName = $_POST['lastname'];
                     $email = $_POST['email'];
 
-                    $user = $_POST['username'];
+                   $user = $_POST['username']; 
                     $salt = mt_rand();
                     $hpass = password_hash($salt . $_POST['password'], PASSWORD_BCRYPT) or die("bind param");
 

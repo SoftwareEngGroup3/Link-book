@@ -44,28 +44,16 @@ if (!$link) {
 }
 $stmt = mysqli_stmt_init($link);
 
-if (mysqli_stmt_prepare($stmt, "SELECT users.uIDnum , count( status.uIDnum ) AS count FROM users , status WHERE users.uIDnum = status.uIDnum GROUP BY status.uIDnum;")) {
+if (mysqli_stmt_prepare($stmt, "SELECT users.fName , count( status.uIDnum ) AS count FROM users , status WHERE users.uIDnum = status.uIDnum GROUP BY status.uIDnum;")) {
     //printf("<br>in the if stmt\n");
     
     mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
-     $x = 0;
-
-     while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
+    mysqli_stmt_bind_result($stmt, $user, $count);
+     while (mysqli_stmt_fetch($stmt))
         {
-          $rows = array();
-          $rows = $row;
-          echo "<br>";
-            foreach ($row as $r)
-            {
-                print "$r ";
-            }
-            print "\n";
-            $x++;
+           //printf("%d\n", $count);
+          $rows[] = $count;
         }
-        /*$jsonEncodedData = json_encode($arrData);
-        $columnChart = new FusionCharts("column2D", "myFirstChart" , 600, 300, "chart-1", "json", $jsonEncodedData);
-        $columnChart->render();*/
 }
 else {
   echo "Prepare Error : ". mysqli_error($link);

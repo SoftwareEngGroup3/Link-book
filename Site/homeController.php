@@ -1,10 +1,8 @@
 <?php
-if(isset($_POST[addStatus])){
+if(isset($_POST[addStatus], $_POST[picPath], $_POST[uid],$_POST[fName],$_POST[lName],$_POST[text])){
     echo "<div class='row' style='padding-bottom: 2em; padding-left: 8em'>";
     printStatus($_POST[picPath], $_POST[uid], $_POST[fName], $_POST[lName], $_POST[text]);
     echo "<div class='row' style='padding-bottom: 2em; padding-left: 8em'>";
-} else {
-    echo "fbijagr";
 }
 
 function populateStatuses($uid)

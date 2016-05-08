@@ -9,9 +9,11 @@
 <body>
 <?php
 include("checksession.php");
-include("navbar.php");
-include("profileController.php");
+include("navbar.php");    
+include("profileController.php");    
 $user = getUserData($_GET[uid]);
+    
+    checkIfBusiness($user);
 
 if ($_SESSION[uid] != $_GET[uid]) {
     $_SESSION[isEditable] = false;
@@ -159,7 +161,6 @@ if ($picPath == "empty") {
 
     });
 
-    function showpopup1() {
         $("#inputform1").fadeIn();
         $("#inputform1").css({"visibility": "visible", "display": "block"});
     }

@@ -1,5 +1,6 @@
 <?php
 
+
 function getUserData($uid)
 {
     include("../secure/secure.php");
@@ -84,4 +85,21 @@ function printStatusCell($content, $index, $numCells)
                  style="border: 1px solid black; height: 5em; width: 250%"><?php echo $content; ?></div><?php
         }
     }
+}
+
+/*
+Redirect to buisness profile page if buisness
+*/
+function checkIfBusiness($uid)
+{
+   if (getUserData($uid) == false)
+   {
+       header("Locattion: business.php");
+   }
+    else
+    {
+        return false;
+    }
+    
+    
 }

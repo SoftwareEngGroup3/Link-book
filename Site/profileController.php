@@ -94,7 +94,7 @@ function checkIfBusiness($uid)
 {
    if (getUserData($uid) == false)
    {
-       header("Locattion: business.php");
+       header("Location: business.php");
    }
     else
     {

@@ -1,4 +1,8 @@
 <?php
+if(isset($_POST[addStatus], $_POST[picPath], $_POST[uid],$_POST[fName],$_POST[lName],$_POST[text])){
+    addStatusToDB($_POST[uid], $_POST[text], $_POST[picPath], $_POST[fName], $_POST[lName]);
+}
+
 function populateStatuses($uid)
 {
     $count = 0;
@@ -30,6 +34,22 @@ function populateStatuses($uid)
     mysqli_free_result($result);
 }
 
+function addStatusToDB($uid, $text, $picPath, $fName, $lName){
+    include("../secure/secure.php");
+    $link = mysqli_connect($site, $user, $pass, $db) or die("Connect Error " . mysqli_error($link));
+    $sql = "INSERT INTO status(uIDnum, content) VALUES(?,?)";
+    $stmt = $link->stmt_init();
+    if($stmt->prepare($sql)){
+        $stmt->bind_param("is", $uid, $text);
+        $stmt->execute();
+        echo "<div class='row' style='padding-bottom: 2em; padding-left: 8em'>";
+        printStatus($picPath, $uid, $fName, $lName, $text);
+        echo "<div class='row' style='padding-bottom: 2em; padding-left: 8em'>";
+    } else {
+        echo "Could not add status!";
+    }
+}
+
 function printStatus($picPath, $uid, $fName, $lName, $text)
 {
     if ($picPath == "empty") {
@@ -51,10 +71,31 @@ function printStatus($picPath, $uid, $fName, $lName, $text)
     <?php
 }
 
+function printAddStatusRow($picPath, $uid, $fName, $lName)
+{
+    if ($picPath == "empty") {
+        $picPath = "../img/no_profile.jpg";
+    }
+    ?>
+    <div id='addingStatusRow' class='row' style='padding-bottom: 2em; padding-left: 8em'>
+    <div class="col-md-2"></div>
+    <div class="col-md-1">
+        <div class="row">
+            <a href="profile.php?uid=<?php echo $uid ?>"><img src="<?php echo $picPath ?>" height="120em" width="110em""></a>
+        </div>
+        <div class="row">
+            <a href="profile.php?uid=<?php echo $uid; ?>"><?php echo $fName . " " . $lName; ?></a>
+        </div>
+    </div>
+    <textarea id="statusTextArea" class="col-md-4" style="resize: none; border: 1px solid black; height: 7em; margin-left: 3em" placeholder="Update your status here..."></textarea>
+    </div>
+    <?php
+}
+
 function usersAreConnected($user1, $user2)
 {
     if($user1 == $user2){
-        return false;
+        return true;
     }
     include("../secure/secure.php");
     $link = mysqli_connect($site, $user, $pass, $db) or die("Connect Error " . mysqli_error($link));

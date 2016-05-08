@@ -1,4 +1,12 @@
 <?php
+if(isset($_POST[addStatus])){
+    echo "<div class='row' style='padding-bottom: 2em; padding-left: 8em'>";
+    printStatus($_POST[picPath], $_POST[uid], $_POST[fName], $_POST[lName], $_POST[text]);
+    echo "<div class='row' style='padding-bottom: 2em; padding-left: 8em'>";
+} else {
+    echo "fbijagr";
+}
+
 function populateStatuses($uid)
 {
     $count = 0;
@@ -47,6 +55,27 @@ function printStatus($picPath, $uid, $fName, $lName, $text)
     </div>
     <div class="col-md-4" style="border: 1px solid black; height: 7em; margin-left: 3em">
         <?php echo $text; ?>
+    </div>
+    <?php
+}
+
+function printAddStatusRow($picPath, $uid, $fName, $lName)
+{
+    if ($picPath == "empty") {
+        $picPath = "../img/no_profile.jpg";
+    }
+    ?>
+    <div id='addingStatusRow' class='row' style='padding-bottom: 2em; padding-left: 8em'>
+    <div class="col-md-2"></div>
+    <div class="col-md-1">
+        <div class="row">
+            <a href="profile.php?uid=<?php echo $uid ?>"><img src="<?php echo $picPath ?>" height="120em" width="110em""></a>
+        </div>
+        <div class="row">
+            <a href="profile.php?uid=<?php echo $uid; ?>"><?php echo $fName . " " . $lName; ?></a>
+        </div>
+    </div>
+    <textarea id="statusTextArea" class="col-md-4" style="resize: none; border: 1px solid black; height: 7em; margin-left: 3em" placeholder="Update your status here..."></textarea>
     </div>
     <?php
 }

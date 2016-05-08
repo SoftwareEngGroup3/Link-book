@@ -5,7 +5,7 @@
 <body>
 <?php
 include("navbar.php");
-include("checksession.php")
+include("checksession.php");
 include("profileController.php");    
 $user = getUserData($_GET[uid]);
 ?>
@@ -35,15 +35,15 @@ FOREIGN KEY (uIDnum) REFERENCES linkbook.users(uIDnum)
 				<div class="col-md-4 col-sm-4 col-xs-6">                  
                     
                 <h3 class="row form-group" >Register as a Buisness</h3> 
-                <p style="text-color: red">WARNING: This will permenantly trun your current profile into a buisness profile. 
+                <p style="text-color: red">WARNING: This will permenantly turn your current profile into a businness profile.
                     This cannot be undone.</p>
-                <p>You will log into your buisness profile with your current username and password.</p>
+                <p>You will log into your business profile with your current username and password.</p>
                     
 				<form action="<?=$_SERVER['PHP_SELF']?>" method="POST">                 
 
   				 <div class="row form-group">
                     <div class="ui input">
-                        <input type="text" name="name" required="required" placeholder="Buisness Name"/>
+                        <input type="text" name="name" required="required" placeholder="Business Name"/>
                     </div>
                 </div>
 				 <div class="row form-group">
@@ -59,7 +59,7 @@ FOREIGN KEY (uIDnum) REFERENCES linkbook.users(uIDnum)
                 </div>
    
 						<div class="row form-group">
-								<input class='form-control' type="text" name="biz_size" required="required" placeholder="Buisness Size">
+								<input class='form-control' type="text" name="biz_size" required="required" placeholder="Business Size">
 						</div>
 						<div class="row form-group">
 								<input class='form-control' type="password" name="password" required="required" placeholder="password">

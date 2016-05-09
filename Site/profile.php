@@ -30,6 +30,8 @@ if ($_SESSION[uid] == $_GET[uid]) {
     $_SESSION[bio] = $user[bio];
     $_SESSION[uIDnum] = $user[uIDnum];
     $_SESSION[profile_picture] = $user[profile_picture];
+    $_SESSION[education] = $user[education];
+    $_SESSION[work_history] = $user[work_history];
 
 }
 
@@ -158,6 +160,18 @@ if ($picPath == "empty") {
         $("#close_input5").click(function () {
             hidepopup5();
         });
+        $("#show_input6").click(function () {
+            showpopup6();
+        });
+        $("#close_input6").click(function () {
+            hidepopup6();
+        });
+        $("#show_input7").click(function () {
+            showpopup7();
+        });
+        $("#close_input7").click(function () {
+            hidepopup7();
+        });
 
     });
 
@@ -199,6 +213,22 @@ if ($picPath == "empty") {
     function hidepopup5() {
         $("#inputform5").fadeOut();
         $("#inputform5").css({"visibility": "hidden", "display": "none"});
+    }
+    function showpopup6() {
+        $("#inputform6").fadeIn();
+        $("#inputform6").css({"visibility": "visible", "display": "block"});
+    }
+    function hidepopup6() {
+        $("#inputform6").fadeOut();
+        $("#inputform6").css({"visibility": "hidden", "display": "none"});
+    }
+    function showpopup7() {
+        $("#inputform7").fadeIn();
+        $("#inputform7").css({"visibility": "visible", "display": "block"});
+    }
+    function hidepopup7() {
+        $("#inputform7").fadeOut();
+        $("#inputform7").css({"visibility": "hidden", "display": "none"});
     }
 
     function hideButtons() {
@@ -338,6 +368,46 @@ if ($picPath == "empty") {
                 echo "<h4>Failed</h4>";
             }
         }
+    } else if (isset($_POST['updateEdu'])) {
+        include("../secure/secure.php");
+        $link = mysqli_connect($site, $user, $pass, $db) or die("Connect Error " . mysqli_error($link));
+
+        $sql = "UPDATE users SET education = ? WHERE uIDnum = ?";
+
+        if ($stmt = mysqli_prepare($link, $sql)) {
+
+            $bio = $_SESSION[education] = $_POST['education'];
+            $uIDnum = $_SESSION[uid];
+            $_SESSION[isEditable] = true;
+
+            mysqli_stmt_bind_param($stmt, "si", $education, $uIDnum) or die("bind param");
+
+            if (mysqli_stmt_execute($stmt)) {
+
+            } else {
+                echo "<h4>Failed</h4>";
+            }
+        }
+    } else if (isset($_POST['updateWork'])) {
+        include("../secure/secure.php");
+        $link = mysqli_connect($site, $user, $pass, $db) or die("Connect Error " . mysqli_error($link));
+
+        $sql = "UPDATE users SET work_history = ? WHERE uIDnum = ?";
+
+        if ($stmt = mysqli_prepare($link, $sql)) {
+
+            $bio = $_SESSION[work_history] = $_POST['work_histoy'];
+            $uIDnum = $_SESSION[uid];
+            $_SESSION[isEditable] = true;
+
+            mysqli_stmt_bind_param($stmt, "si", $work_histoy, $uIDnum) or die("bind param");
+
+            if (mysqli_stmt_execute($stmt)) {
+
+            } else {
+                echo "<h4>Failed</h4>";
+            }
+        }
     }
 
 
@@ -452,6 +522,41 @@ if ($picPath == "empty") {
                     </div>
                 </form>
 
+                
+                <form action="<?= $_SERVER['PHP_SELF'] ?>" method="POST" id="inputform6" class="inputform">
+
+                    <input type="button" type="image" id="close_input6" src="close.png" class="close_input">
+
+
+                    <div class="updateEdu">
+                        <div class="ui input">
+                            <textarea rows="5" cols="40" name="education"
+                                      required="required"> <?php echo $_SESSION[education]; ?> </textarea>
+                        </div>
+                    </div>
+
+                    <div class="updateButton">
+                        <input type="submit" name="updateEdu" value="Update"/>
+                    </div>
+                </form>
+                
+                
+                <form action="<?= $_SERVER['PHP_SELF'] ?>" method="POST" id="inputform7" class="inputform">
+
+                    <input type="button" type="image" id="close_input7" src="close.png" class="close_input">
+
+
+                    <div class="updateWork">
+                        <div class="ui input">
+                            <textarea rows="5" cols="40" name="work_history"
+                                      required="required"> <?php echo $_SESSION[work_history]; ?> </textarea>
+                        </div>
+                    </div>
+
+                    <div class="updateButton">
+                        <input type="submit" name="updateWork" value="Update"/>
+                    </div>
+                </form>
 
             </div>
 
@@ -523,14 +628,57 @@ if ($picPath == "empty") {
             //printBigModule("")
             ?>
         </div>
-
         <?php if ($_SESSION[uid] == $_SESSION[uIDnum]) {
             if ($_SESSION[isEditable]) { ?>
                 <input type="button" id="show_input5" value="Edit">
                 <?php
             }
         } ?>
+        
+        <h3>Education:</h3>
+        <div class="aboutText">
+            <?php
+            if ($_SESSION[isEditable]) {
+                echo $_SESSION[education];
+            }
+            if ($_SESSION[isEditable] == false) {
+                echo $user[education];
+            }
+            echo " ";
 
+            //printBigModule("")
+            ?>
+        </div>   
+        <?php if ($_SESSION[uid] == $_SESSION[uIDnum]) {
+            if ($_SESSION[isEditable]) { ?>
+                <input type="button" id="show_input6" value="Edit">
+                <?php
+            }
+        } ?>
+        
+         <h3>Work History:</h3>
+        <div class="aboutText">
+            <?php
+            if ($_SESSION[isEditable]) {
+                echo $_SESSION[work_history];
+            }
+            if ($_SESSION[isEditable] == false) {
+                echo $user[work_history];
+            }
+            echo " ";
+
+            //printBigModule("")
+            ?>
+        </div>  
+        <?php if ($_SESSION[uid] == $_SESSION[uIDnum]) {
+            if ($_SESSION[isEditable]) { ?>
+                <input type="button" id="show_input7" value="Edit">
+                <?php
+            }
+        } ?>
+        
+        
+    
     </div>
     <div class="col-lg-1">
                 <?php

@@ -59,7 +59,7 @@ if (isset($_POST['submit'])) { // Was the form submitted?
     if ($stmt = mysqli_prepare($link, "SELECT * FROM users WHERE username = ?")) {
         mysqli_stmt_bind_param($stmt, "s", $key);
         mysqli_stmt_execute($stmt);
-        mysqli_stmt_bind_result($stmt, $uIDnum, $isBusiness, $fName, $lName, $email, $user, $salt, $hashed_password, $orgo, $bio, $pic, $lang);
+        mysqli_stmt_bind_result($stmt, $uIDnum, $isBusiness, $fName, $lName, $email, $user, $salt, $hashed_password, $orgo, $bio, $pic, $lang, $d1, $d2);
 
         mysqli_stmt_fetch($stmt);
 
@@ -68,6 +68,9 @@ if (isset($_POST['submit'])) { // Was the form submitted?
             $_SESSION["loggedin"] = "true";
             $_SESSION["username"] = $key;
             $_SESSION["uid"] = $uIDnum;
+            $_SESSION["picPath"] = $pic;
+            $_SESSION["fName"] = $fName;
+            $_SESSION["lName"] = $lName;
             if($_SESSION["username"] == "Admin") {
                     header("Location: admin.php");
             } else {       

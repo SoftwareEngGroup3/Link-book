@@ -174,10 +174,10 @@ if ($picPath == "empty") {
         });
 
     });
-
+    function showpopup1() {
         $("#inputform1").fadeIn();
         $("#inputform1").css({"visibility": "visible", "display": "block"});
-    
+    }
     function hidepopup1() {
         $("#inputform1").fadeOut();
         $("#inputform1").css({"visibility": "hidden", "display": "none"});

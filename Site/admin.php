@@ -30,6 +30,7 @@ include("profileController.php");
 ?>
 <div>
     <h1>Welcome <?php echo $_SESSION["username"] ?>
+    <h2> Number of Statuses for each user</h2>
 </div>
 
 
@@ -51,8 +52,9 @@ if (mysqli_stmt_prepare($stmt, "SELECT users.fName , count( status.uIDnum ) AS c
     mysqli_stmt_bind_result($stmt, $user, $count);
      while (mysqli_stmt_fetch($stmt))
         {
-           //printf("%d\n", $count);
-          $rows[] = $count;
+          $rows[]= $count;
+          echo"<br>";
+          printf("The users who have posts are %s\n", $user); 
         }
 }
 else {
@@ -62,9 +64,9 @@ else {
 <div class="chart"></div>
 
 <script>
-
 var data = [<?=implode(',', $rows);?>];
 console.log(data);
+
 
 var x = d3.scale.linear()
     .domain([0, d3.max(data)])

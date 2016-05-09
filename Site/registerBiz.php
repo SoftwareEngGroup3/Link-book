@@ -62,7 +62,7 @@ FOREIGN KEY (uIDnum) REFERENCES linkbook.users(uIDnum)
 								<input class='form-control' type="text" name="biz_size" required="required" placeholder="Business Size">
 						</div>
 						<div class="row form-group">
-								<input class='form-control' type="password" name="password" required="required" placeholder="password">
+								<input class='form-control' type="text" name="product" required="required" placeholder="password">
 						</div>
 						<div class="row form-group">
 								<input class=" btn btn-default" type="submit" name="submit"  required="required" value="Register"/>
@@ -160,7 +160,7 @@ FOREIGN KEY (uIDnum) REFERENCES linkbook.users(uIDnum)
                     $isBusiness = 1;
     
 
-                    mysqli_stmt_bind_param($stmt, "i", isBusiness) or die("bind param");
+                   //vim mysqli_stmt_bind_param($stmt, "i", isBusiness) or die("bind param");
      
 
                     if (mysqli_stmt_execute($stmt)) 
@@ -178,7 +178,7 @@ FOREIGN KEY (uIDnum) REFERENCES linkbook.users(uIDnum)
                 {
                     die("prepare failed");
                 }
-                }          
+                          
             
                     
 			?>

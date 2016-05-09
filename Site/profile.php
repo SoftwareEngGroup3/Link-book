@@ -476,14 +476,22 @@ if ($picPath == "empty") {
             <?php printSmallModule($_SESSION[coding_languages]); ?>
             <?php if ($_SESSION[uid] == $_SESSION[uIDnum]) { ?>
                 <input type="button" id="show_input4" value="Edit">
+<<<<<<< HEAD
             <?php }
           
             
         }
 
         ?>
+=======
+>>>>>>> refs/remotes/origin/master
 
-        <?php
+                <p>Want to become a business? <a href="registerBiz.php">Click HERE!</a></p>
+
+
+                <?php
+            }
+        }
         if ($_SESSION[isEditable] == false) {
             printSmallModule($user[fName] . " " . $user[lName]); ?>
             <?php if ($_SESSION[uid] == $_SESSION[uIDnum]) { ?>

@@ -533,7 +533,7 @@ if ($picPath == "empty") {
     </div>
     <div class="col-lg-1">
                 <?php
-                printStatusBlock($_SESSION[uIDnum], 3, 5); ?>
+                printStatusBlock($_GET[uid], 3, 5); ?>
 
 
         </div>

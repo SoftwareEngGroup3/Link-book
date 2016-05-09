@@ -78,13 +78,13 @@ function printRow($title, $description, $qualifications, $name, $location, $pay,
     ?>
     <tr>
         <td><?php echo $title ?></td>
-        <td><a href="profile.php?bid=<?php echo $busID ?>"><?php echo $name ?></a></td>
+        <td><?php echo $name ?></td>
         <td><?php echo $location ?></td>
         <td><?php echo $description ?></td>
         <td><?php echo $qualifications ?></td>
         <td><?php echo $pay ?></td>
         <td><?php echo $email ?></td>
-        <td><a href="message.php?bid=<?php echo $busID ?>">Message...</a></td>
+        <td></td>
     </tr>
     <?php
 }

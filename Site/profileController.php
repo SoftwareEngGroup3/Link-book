@@ -1,5 +1,6 @@
 <?php
 
+
 function getUserData($uid)
 {
     include("../secure/secure.php");
@@ -72,16 +73,36 @@ function printStatusCell($content, $index, $numCells)
     if ($index == 0) {
         ?>
         <div class="row"
-             style="border: 1px solid black; border-top-left-radius: 10px; border-top-right-radius: 10px; height: 5em"><?php echo $content; ?></div>
+             style="border: 1px solid black; border-top-left-radius: 10px; border-top-right-radius: 10px; height: 6em; width: 250%"><?php echo $content; ?></div>
     <?php } else {
         if ($index == $numCells - 1) {
             ?>
             <div class="row"
-                 style="border: 1px solid black; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; height: 5em"><?php echo $content; ?></div><?php
+                 style="border: 1px solid black; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; height: 6em; width: 250%"><?php echo $content; ?></div><?php
         } else {
             ?>
             <div class="row"
-                 style="border: 1px solid black; height: 5em"><?php echo $content; ?></div><?php
+                 style="border: 1px solid black; height: 6em; width: 250%"><?php echo $content; ?></div><?php
         }
     }
 }
+
+/*
+Redirect to buisness profile page if buisness
+*/
+function checkIfBusiness($uid)
+{
+
+    $isBiz = getUserData($uid);
+    
+    if ($isBiz[isBusiness] == 1)
+    {
+       header("Locattion: business.php");
+    }
+
+    else
+    {
+        return false;
+    }
+}
+      

@@ -31,7 +31,7 @@ function generateListings($query, $colQueried)
             $result2 = mysqli_query($link, "SELECT * FROM `business` WHERE bIDnum = ".$listRow[bIDnum]);
             $busRow = mysqli_fetch_assoc($result2);
             //print_r($busRow);
-            printRow($listRow[job_title], $listRow[job_description], $listRow[qualifications], $busRow[name], $listRow[location], $listRow[starting_pay], $busRow[contact_email], $listRow[bIDnum]);
+            printRow($listRow[job_title], $listRow[job_description], $listRow[qualifications], $listRow[companyName], $listRow[location], $listRow[starting_pay], $listRow[contactInfo], $listRow[bIDnum]);
         }
         ?>
         <tr id="lastRow" style="height: 2em;">
@@ -78,13 +78,13 @@ function printRow($title, $description, $qualifications, $name, $location, $pay,
     ?>
     <tr>
         <td><?php echo $title ?></td>
-        <td><a href="profile.php?bid=<?php echo $busID ?>"><?php echo $name ?></a></td>
+        <td><?php echo $name ?></td>
         <td><?php echo $location ?></td>
         <td><?php echo $description ?></td>
         <td><?php echo $qualifications ?></td>
         <td><?php echo $pay ?></td>
         <td><?php echo $email ?></td>
-        <td><a href="message.php?bid=<?php echo $busID ?>">Message...</a></td>
+        <td></td>
     </tr>
     <?php
 }

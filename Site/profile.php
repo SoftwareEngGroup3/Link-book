@@ -376,7 +376,7 @@ if ($picPath == "empty") {
 
         if ($stmt = mysqli_prepare($link, $sql)) {
 
-            $bio = $_SESSION[education] = $_POST['education'];
+            $education = $_SESSION[education] = $_POST['education'];
             $uIDnum = $_SESSION[uid];
             $_SESSION[isEditable] = true;
 
@@ -396,11 +396,11 @@ if ($picPath == "empty") {
 
         if ($stmt = mysqli_prepare($link, $sql)) {
 
-            $bio = $_SESSION[work_history] = $_POST['work_histoy'];
+            $work_history = $_SESSION[work_history] = $_POST['work_history'];
             $uIDnum = $_SESSION[uid];
             $_SESSION[isEditable] = true;
 
-            mysqli_stmt_bind_param($stmt, "si", $work_histoy, $uIDnum) or die("bind param");
+            mysqli_stmt_bind_param($stmt, "si", $work_history, $uIDnum) or die("bind param");
 
             if (mysqli_stmt_execute($stmt)) {
 
@@ -513,7 +513,7 @@ if ($picPath == "empty") {
                     <div class="updateBio">
                         <div class="ui input">
                             <textarea rows="5" cols="40" name="bio"
-                                      required="required"> <?php echo $_SESSION[bio]; ?> </textarea>
+                                      > <?php echo $_SESSION[bio]; ?> </textarea>
                         </div>
                     </div>
 
@@ -531,7 +531,7 @@ if ($picPath == "empty") {
                     <div class="updateEdu">
                         <div class="ui input">
                             <textarea rows="5" cols="40" name="education"
-                                      required="required"> <?php echo $_SESSION[education]; ?> </textarea>
+                                      > <?php echo $_SESSION[education]; ?> </textarea>
                         </div>
                     </div>
 
@@ -548,8 +548,7 @@ if ($picPath == "empty") {
 
                     <div class="updateWork">
                         <div class="ui input">
-                            <textarea rows="5" cols="40" name="work_history"
-                                      required="required"> <?php echo $_SESSION[work_history]; ?> </textarea>
+                            <textarea rows="5" cols="40" name="work_history"> <?php echo $_SESSION[work_history]; ?> </textarea>
                         </div>
                     </div>
 

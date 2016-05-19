@@ -40,6 +40,7 @@ uIDnum2 INT
 
 CREATE TABLE linkbook.statuses
 (
+uIDnum INT,
 statIDnum INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
 ulDnum INT,
 content TEXT,
@@ -77,14 +78,14 @@ CREATE INDEX ix_bIDnum ON linkbook.business(bIDnum);
 
 CREATE TABLE linkbook.listing
 (
-listIDnum INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+listIDnum INT NOT NULL AUTO_INCREMENT,
 bIDnum INT,
 job_title VARCHAR(30),
 job_description VARCHAR(600),
 qualifications VARCHAR(600),
 starting_pay VARCHAR(30),
--- PRIMARY KEY (listIDnum),
-FOREIGN KEY (bIDnum) REFERENCES linkbook.buisness(bIDnum)
+PRIMARY KEY (listIDnum, bIDnum),
+FOREIGN KEY (bIDnum) REFERENCES linkbook.business(bIDnum)
 );
 
 CREATE TABLE linkbook.messages
@@ -109,7 +110,7 @@ uIDnum INT,
 eduIDnum INT NOT NULL AUTO_INCREMENT,
 institution TEXT,
 degree TEXT,
-PRIMARY KEY (uIDnum, eduIDnum),
+PRIMARY KEY (eduIDnum, uIDnum),
 FOREIGN KEY (uIDnum) REFERENCES linkbook.users(uIDnum)
 );
 
@@ -119,7 +120,7 @@ uIDnum INT,
 jobIDnum INT NOT NULL AUTO_INCREMENT,
 company VARCHAR(100),
 job_title VARCHAR(100),
-PRIMARY KEY (uIDnum, jobIDnum),
+PRIMARY KEY (jobIDnum, uIDnum),
 FOREIGN KEY (uIDnum) REFERENCES linkbook.users(uIDnum)
 );
 
@@ -132,26 +133,3 @@ position VARCHAR(100),
 -- PRIMARY KEY (uIDnum, volIDnum),
 FOREIGN KEY (uIDnum) REFERENCES linkbook.users(uIDnum)
 );
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

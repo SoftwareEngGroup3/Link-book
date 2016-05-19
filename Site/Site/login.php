@@ -59,13 +59,10 @@ if (isset($_POST['submit'])) { // Was the form submitted?
     if ($stmt = mysqli_prepare($link, "SELECT * FROM users WHERE username = ?")) {
         mysqli_stmt_bind_param($stmt, "s", $key);
         mysqli_stmt_execute($stmt);
-        mysqli_stmt_bind_result($stmt, $uIDnum, $isBusiness, $fName, $lName, $email, $user, $salt, $hashed_password, $orgo, $bio, $pic, $lang);
+        mysqli_stmt_bind_result($stmt, $uIDnum, $isBusiness, $fName, $lName, $email, $user, $salt, $hashed_password, $orgo, $bio, $pic, $lang, $education, $work_history);
 
-        while(mysqli_stmt_fetch($stmt)){
-        printf("%d %d %s %s %s %s %c\n", $uIDnum, $isBusiness, $fName, $lName, $email, $user,$salt);
-        echo "<br>";
-        echo password_hash($salt . $password, PASSWORD_BCRYPT)."\n";
-        }
+        mysqli_stmt_fetch($stmt);
+
         //$salt $hashed_password
         if (password_verify($salt . $_POST['password'], $hashed_password)) {
             session_start();

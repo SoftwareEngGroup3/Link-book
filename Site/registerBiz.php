@@ -62,8 +62,7 @@ FOREIGN KEY (uIDnum) REFERENCES linkbook.users(uIDnum)
 								<input class='form-control' type="text" name="biz_size" required="required" placeholder="Business Size">
 						</div>
 						<div class="row form-group">
-								<input class='form-control' type="text" name="product" required="required" placeholder="password">
-						</div>
+					
 						<div class="row form-group">
 								<input class=" btn btn-default" type="submit" name="submit"  required="required" value="Register"/>
 						</div>
@@ -99,6 +98,7 @@ FOREIGN KEY (uIDnum) REFERENCES linkbook.users(uIDnum)
                     $contact_email = $user[email];
                     $uid = $user[uIDnum];
                     
+                    
                     include("../secure/secure.php");
 
                     $link = mysqli_connect($site, $user, $pass, $db) or die("Connect Error " . mysqli_error($link));
@@ -124,11 +124,11 @@ FOREIGN KEY (uIDnum) REFERENCES linkbook.users(uIDnum)
                     $contact_email = $_POST['contact_email'];
                     $biz_size = $_POST['biz_size'];
                     $product = $_POST['product'];
-                    $openings = $_POST['openings'];
+                    //$openings = $_POST['openings'];
                     $pic = "empty";
     
 
-                    mysqli_stmt_bind_param($stmt, "isssisis", $uIDnum, $Name, $contact_name, $contact_email, $biz_size, $product, $openings, $pic) or die("bind param");
+                    mysqli_stmt_bind_param($stmt, "isssiss", $uIDnum, $Name, $contact_name, $contact_email, $biz_size, $product, $openings, $pic) or die("bind param");
                     
                     
                     
